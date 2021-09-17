@@ -1,0 +1,43 @@
+---
+title: "fc128 - Strict"
+output: 
+  pdf_document: 
+    latex_engine: xelatex
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tag
+
+- Tổ hợp
+
+## Ý tưởng
+
+Đề bài có nghĩa: Tính số cách chọn mảng con (không nhất thiết phải liên tiếp nhau) của mảng $A$ sao cho không có phần tử nào trong $A$ xuất hiện nhiều hơn 1 lần.
+
+## Solution
+
+Trong $N$ số ban đầu có $K$ số lượng giá trị khác nhau. Gọi lần lượt các giá trị khác nhau đó là $x_{1}, x_{2}, x_{3},... x_{k}$. Gọi $c[x_{i}]$ là số lần giá trị $x_{i}$ xuất hiện trong $A$. Ta có:
+
+- Số tổ hợp mảng con chứa $x_{1}$ là:  
+$c[x_{1}] * (c[x_{2}]+1) * (c[x_{3}]+1) * ... * (c[x_{k}]+1)$
+- Số tổ hợp mảng con chứa $x_{2}$ nhưng không chứa $x_{1}$ là:  
+$c[x_{2}] * (c[x_{3}]+1) * (c[x_{4}]+1) * ... * (c[x_{k}]+1)$
+- Số tổ hợp mảng con chứa $x_{3}$ nhưng không chứa $x_{1}$ và $x_{2}$ là:  
+$c[x_{3}] * (c[x_{4}]+1) * (c[x_{5}]+1) * ... * (c[x_{k}]+1)$
+- ...
+- Số tổ hợp mảng con chứa $x_{k}$ nhưng không chứa những giá trị còn lại là:  
+$c[x_{k}]$
+
+Kết quả bài toán là tổng các số tổ hợp trên.
+
+## Độ phức tạp
+
+Nén $N$ giá trị ban đầu thành $K$ giá trị duy nhất có chi phí thời gian $O(nlog(n))$
+
+Tích $(c[x_{i}]+1) * (c[x_{i+1}]+1) * (c[x_{i+2}]+1) * ... * (c[x_{k}]+1)$ có thể được lưu trữ và tái sử dụng, chi phí thời gian trong bước tính số tổ hợp là $O(n)$
+
+=> Độ phức tạp bài toán: $O(nlog(n))$

@@ -1,0 +1,35 @@
+---
+title: "hspc14h / Táo Chuối - Solution"
+output: 
+  pdf_document: 
+    latex_engine: xelatex
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tag
+
+- Quy hoạch động
+
+## Ý tưởng
+
+Gọi $f[i][j]$ là tổng số lượng cây lớn nhất chia được khi xe ủi đến ô $ij$
+
+Dùng phương pháp quy hoạch động cải tiến từ **[bài toán qbmax](https://oj.vnoi.info/problem/qbmax)**, tính $f[i][j]$ từ $f[i-1][j]$, $f[i][j-1]$ và $f[i-1][j-1]$.
+
+Kết quả bài toán là $f[R][C]$.
+
+## Tính giá trị ô $f[i][j]$
+
+Gọi: 
+
+- $mat[R][C]$ là ma trận miêu tả $R*C$ ô đất 
+- $ga[i][j]$ là tổng số cây táo từ ô $mat[i+1][j]$ đến ô $mat[R][j]$ 
+- $gb[i][j]$ là tổng số cây chuối từ ô $mat[i-1][j]$ đến ô $mat[1][j]$. 
+
+Khi xe di chuyển từ ô $i_{1}j_{1}$ đến ô ${i_{2}j_{2}}$ ($j_{2} = j_{1}+1, i_{2} = i_{1}$ hoặc $i_{1}+1$ ứng với xe di chuyển quả phải hay chéo xuống dưới), ta có $f[i_{2}][j_{2}] = f[i_{1}][j_{1}] + ga[i_{2}][j_{2}] + gb[i_{2}][j_{2}]$.
+
+Trường hợp xe di chuyển từ ô $i_{1}j$ xuống $i_{2}j$, do số lượng cây táo ở các ô bị ủi qua thì mất đi mà ta cũng không thêm được một cây chuối nào, giá trị $f[i_{2}][j]$ bằng $f[i_{1}][j] - ga[i_{1}][j] + ga[i_{2}][j]$.

@@ -1,0 +1,8 @@
+# ignore all compiled files
+*.exe
+
+# ignore local sub files
+_sub/
+
+# ignore sys files
+.vscode/

@@ -1,0 +1,25 @@
+full thì phải là 2^m *m * k
+
+ý...
+
+ừm đúng rồi :V
+
+2^m * n ý em lớp 10 đó là
+
+với mỗi dãy bit mà em có
+
+thì em kiểm tra hết 2^m bitset khác với bitset em đang duyệt đúng K bit
+
+thì có bao nhiêu đứa 2^m bitset đó thỏa
+
+thì như vậy 2^10 * 10^5 là dư sức cho 50%
+
+nhưng mà cũng ko nổi cho full test
+
+cũng có cách khác mà liên quan đến tổ hợp
+
+là em sẽ đọc hết n bitset đề cho
+
+đếm hết mấy bitset đó, rồi em sẽ duyệt hai vòng for bitset i từ 0 đến 2^m - 1 và j cũng tương tự 0 đến 2^m - 1, nếu i và j khác nhau đúng K bit thì theo quy tắc nhân em nhân hai số đếm của hai bitset đó lại với nhau. ra số cặp thỏa :V
+
+thì thuật toán chạy trong O(n + 2^(2m)) nhưng cũng ko đủ cho full test

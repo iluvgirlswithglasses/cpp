@@ -1,0 +1,20 @@
+---
+title: "CF / Opposite"
+output: 
+  pdf_document: 
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ý tưởng
+
+Với $a$ và $b$ đối diện nhau, ta tính được số người có trong nửa vòng tròn, suy ra số người có trong cả vòng tròn.
+
+Giả sử số người có trong cả vòng tròn là $S$, ta kiểm tra xem $a$, $b$, $c$, $d$ thuộc $(0,S]$ hay không. Nếu có, in ra $d$, nếu không in ra $-1$.
+
+## Độ phức tạp
+
+$O(1)$ với mỗi bộ test

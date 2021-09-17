@@ -1,0 +1,17 @@
+---
+title: "CF / Dislike of Threes"
+output: 
+  pdf_document: 
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ý tưởng
+
+Với $K$ đề cho rất nhỏ, chúng ta có thể tạo trước dãy Polycarp trong $O(K)$ rồi trả lời mỗi truy vấn trong $O(1)$.
+
+Để tạo dãy Polycarp, duyệt lần lượt $i$ từ 1 đến $N$. Chừng nào độ dài dãy Polycarp còn bé hơn $K$, nếu $i$ không chia hết cho 3 và có số hàng đơn vị khác 3, ta thêm $i$ vào dãy. 
+

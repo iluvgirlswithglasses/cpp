@@ -1,0 +1,6 @@
+Có thể browse những bài của free contest trên oj.vnoi
+
+URL `https://oj.vnoi.info/problem/${kỳ thi}_${đề bài}`
+
+Nhớ rằng: Mã kỳ thi của Beginner Free Contest là fcb,
+khác với mã chúng ta ghi ở đây

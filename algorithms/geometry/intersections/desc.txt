@@ -1,0 +1,11 @@
+vấn đề chính:
+lvl_max:
+https://www.geeksforgeeks.org/given-a-set-of-line-segments-find-if-any-two-segments-intersect/
+
+vấn đề phụ:
+	lvl_sub0:
+		giảm độ khó: Các đoạn thẳng được cho song song với trục tọa độ
+		-1e5 < X, Y < 1e5
+	lvl_sub1:
+		giảm độ khó: Các đoạn thẳng được cho song song với trục tọa độ
+		-1e9 < X, Y < 1e9
