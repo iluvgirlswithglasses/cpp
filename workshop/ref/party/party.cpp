@@ -17,6 +17,7 @@ pi dfs(int u, int p) {
 		pi child = dfs(v, u);
 		cr.st += child.nd;	// choose this, discard child
 		cr.nd += max(child.st, child.nd);	// discard this, choose or discard child
+		cr.st %= R; cr.nd %= R;
 	}
 	return cr;
 }
