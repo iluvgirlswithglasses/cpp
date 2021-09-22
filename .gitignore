@@ -3,6 +3,7 @@
 
 # ignore local sub files
 _sub/
+_shell/
 
 # ignore sys files
 .vscode/
