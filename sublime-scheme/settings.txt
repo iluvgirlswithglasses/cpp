@@ -1,0 +1,7 @@
+{
+	"font_size": 14,
+	"show_errors_inline": false,
+	"color_scheme": "Packages/Color Scheme - Default/Mariana.sublime-color-scheme",
+	"dark_color_scheme": "Packages/Color Scheme - Default/Celeste.sublime-color-scheme",
+	"light_color_scheme": "Packages/Color Scheme - Default/Mariana.sublime-color-scheme",
+}
