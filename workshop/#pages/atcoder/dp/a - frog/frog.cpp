@@ -9,7 +9,8 @@ int main() {
 	cin >> n;
 	for (int i = 1; i <= n; i++) cin >> a[i];
 	//
-	for (int i = 2; i <= n; i++) {
+	dp[2] = abs(a[2] - a[1]);
+	for (int i = 3; i <= n; i++) {
 		dp[i] = min(
 			abs(a[i] - a[i-2]) + dp[i-2],
 			abs(a[i] - a[i-1]) + dp[i-1]
