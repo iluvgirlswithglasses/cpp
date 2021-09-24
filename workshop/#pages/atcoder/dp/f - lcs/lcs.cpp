@@ -17,11 +17,10 @@ int main() {
 	}
 	//
 	int i = a.length(), j = b.length();
-	while (i > 0 || j > 0) {
-		if (dp[i][j] > dp[i-1][j] && dp[i][j] > dp[i][j-1]) {
-			r = a[i-1] + r;
-			i--; j--;
-		} else if (i > 0 && dp[i-1][j] > dp[i][j-1]) {
+	while (i > 0 && j > 0) {
+		if (a[i-1] == b[j-1]) {
+			r = a[--i] + r; --j;
+		} else if (dp[i-1][j] > dp[i][j-1]) {
 			i--;
 		} else {
 			j--;
