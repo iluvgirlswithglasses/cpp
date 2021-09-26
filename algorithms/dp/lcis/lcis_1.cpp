@@ -22,8 +22,7 @@ int calc(bool (*f)(int i, int j)) {
 		for (int j = 0; j < bl; j++) {
 			// tạm lưu lại giá trị của `crlen` vì nguyên nhân bên dưới
 			int pre = crlen;
-			// phải so `b[j]` với `a[i]`
-			// vì `dp[]` được build theo j, còn i là điểm neo
+			// nếu a[i] có thể sử dụng kết quả của b[j]
 			if (f(b[j], a[i])) 
 				crlen = max(crlen, dp[j]);
 			// nếu thêm được 1 phần tử vào common sequence

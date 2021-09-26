@@ -16,7 +16,7 @@ int m, a[nlim],
  * perf
  * */
 bool comparator(int x, int y) {
-	return (x << 1) <= y;
+	return x >= (y<<1);
 }
 
 int lcs2x() {
@@ -27,8 +27,8 @@ int lcs2x() {
 		int maxlen = 0;
 		for (int j = 0; j < n; j++) {
 			int pre = maxlen;
-			//
-			if (comparator(b[j], a[i])) 
+			// if a[i] can inherit the result of b[j]
+			if (comparator(a[i], b[j])) 
 				maxlen = max(maxlen, dp[j]);
 			// if find another piece in common sequence
 			if (a[i] == b[j]) 
