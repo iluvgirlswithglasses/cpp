@@ -58,8 +58,10 @@ void compare() {
 int geterr() {
 	int ** f = new int*[k];
 	for (int i = 0; i < k; i++) {
+		int cr = dp[i][s[i] - 'A'],
+			difbest = *max_element(dp[i], dp[i] + 26) - cr;
 		f[i] = new int[2]{
-			dp[i][s[i] - 'A'], *max_element(dp[i], dp[i] + 26)
+			cr, difbest
 		};
 	}
 	sort(f, f+k, [](int* i, int* j){
@@ -68,7 +70,7 @@ int geterr() {
 	//
 	int correct = 0;
 	for (int i = 0; i < r; i++) {
-		correct += f[i][1]; delete[] f[i];
+		correct += f[i][0] + f[i][1]; delete[] f[i];
 	}
 	for (int i = r; i < k; i++) {
 		correct += f[i][0]; delete[] f[i];
