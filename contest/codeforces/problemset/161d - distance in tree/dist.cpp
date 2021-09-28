@@ -14,7 +14,8 @@ void dfs(int u, int p) {
 	for (u16 &v: adj[u]) if (v != p) {
 		dfs(v, u);
 		for (int i = 0; i < k; i++) {
-			dp[u][i+1] += dp[v][i];
+			res += dp[u][i] * dp[v][k-i-1];
+			dp[u][i] += dp[v][i-1];
 		}
 	}
 }
@@ -31,8 +32,6 @@ int main() {
 		dp[i][0] = 1;
 	dfs(0, -1);
 	//
-	for (int i = 0; i < n; i++)
-		res += dp[i][k];
 	cout << res << "\n";
 	return 0;
 }
