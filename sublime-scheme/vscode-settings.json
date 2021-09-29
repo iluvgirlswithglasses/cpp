@@ -1,0 +1,129 @@
+{
+    "workbench.statusBar.visible": false,
+    "editor.minimap.enabled": false,
+    "window.zoomLevel": 1,
+    "workbench.preferredLightColorTheme": "Default Dark+",
+    "workbench.colorCustomizations": {
+
+        // breadcrumbs is turned off
+        // activity bar is turned off
+
+        /* activity bar - the left-most bar */
+        "activityBar.background": "#000000",
+
+        /* editor - the code */
+        "editor.background": "#13181e",
+
+        /* sidebar - sublime's file manager */
+        "sideBar.background": "#0d1215",
+
+        /* title bar - the bard with wm buttons */
+        "titleBar.activeBackground": "#000000",
+        "titleBar.inactiveBackground": "#000000",
+        "titleBar.inactiveForeground": "#888888",
+
+        /* tabs manager */
+        "tab.activeBackground": "#191e24",
+        "tab.inactiveBackground": "#22262a",
+        "editorGroupHeader.tabsBackground": "#22262a",
+    },
+    "workbench.activityBar.visible": false,
+    
+    "editor.tokenColorCustomizations": {
+        "comments": "#a6acb9",
+        "textMateRules": [
+            // abstract types
+            {
+                "scope": "entity.name.type.class.templated",
+                "settings": {
+                    "foreground": "#c695c6",
+                }
+            },
+            // constants
+            {
+                "scope": "constant.language",
+                "settings": {
+                    "foreground": "#ec6056",
+                }
+            },
+            {
+                "scope": "constant.numeric, keyword.other.unit.exponent.decimal",
+                "settings": {
+                    "foreground": "#f9ae57",
+                }
+            },
+            // data types
+            {
+                "scope": "storage.type, entity.name.type",
+                "settings": {
+                    "foreground": "#c695c6",
+                }
+            },
+            // escape characters
+            {
+                "scope": "constant.character.escape",
+                "settings": {
+                    "foreground": "#c695c6",
+                }
+            },
+            // functions
+            {
+                "scope": "entity.name.function",
+                "settings": {
+                    "foreground": "#6699cc",
+                }
+            },
+            // keyword control
+            {
+                "scope": "keyword.control",
+                "settings": {
+                    "foreground": "#c695c6",
+                }
+            },
+            // macros, like #include and #define
+            {
+                "scope": "meta.preprocessor",
+                "settings": {
+                    "foreground": "#c695c6",
+                }
+            },
+            // operators
+            {
+                "scope": "keyword.operator, entity.name.function.operator.member, entity.name.function.operator, punctuation.definition.begin.bracket.square, punctuation.definition.end.bracket.square",
+                "settings": {
+                    "foreground": "#f97b57",
+                }
+            },
+            // preprocessor
+            {
+                "scope": "entity.name.function.preprocessor",
+                "settings": {
+                    "foreground": "#60b4b4",
+                }
+            },
+            // modifier, like private, public and constant
+            {
+                "scope": "storage.modifier",
+                "settings": {
+                    "foreground": "#ec6056",
+                }
+            },
+            // strings
+            {
+                "scope": "string",
+                "settings": {
+                    "foreground": "#8ac794",
+                }
+            },
+            // variables
+            {
+                "scope": "variable",
+                "settings": {
+                    "foreground": "#d8dee9",
+                }
+            },
+        ]
+    },
+    "editor.fontSize": 16,
+    "breadcrumbs.enabled": false,
+}
