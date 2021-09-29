@@ -10,12 +10,7 @@ const u16 I = 65535;
 u16 houses;
 
 const i16 M[] = {-4, 1, 4, -1};
-
-void prf(u16 &d) {
-	for (int i = 15; i >= 0; i--) {
-		cout << (d>>i&1);
-	} cout << "\n";
-}
+const i16 E[] = {0, 1, 2, 3, 4, 7, 8, 11, 12, 13, 14, 15};
 
 i16 getnxt(i16 cr, i16 m) {
 	i16 nxt = cr + M[m];
@@ -41,7 +36,7 @@ void dfs(const u16 bitset, i16 u, u16 &visited, u16 &cnt) {
 	}
 }
 
-bool dfs(const u16 bitset) {
+bool dfs(u16 bitset) {
 	u16 visited = 0, cnt = 0;
 	for (i16 i = 0; i < 16; i++) if (bitset>>i&1) {
 		dfs(bitset, i, visited, cnt);
@@ -50,9 +45,18 @@ bool dfs(const u16 bitset) {
 	return cnt == __builtin_popcount(bitset);
 }
 
-/*
-^ still error
-*/
+
+bool dfs_g2(u16 bitset) {
+	u16 visited = 0, cnt = 0;
+	bitset = ~bitset;
+	for (int _i = 0; _i < sizeof(E) / sizeof(E[0]); _i++) {
+		u16 i = E[_i];
+		if (
+			(bitset>>i&1) && !(visited>>i&1)
+		) dfs(bitset, i, visited, cnt);
+	}
+	return cnt == __builtin_popcount(bitset);
+}
 
 bool included(u16 &bitset) {
 	u16 s = ~(bitset|houses);
@@ -62,7 +66,7 @@ bool included(u16 &bitset) {
 u32 brute() {
 	u32 res = 0;
 	for (u16 i = 1; i != 0; i++) {
-		if (included(i) && dfs(i)) {
+		if (included(i) && dfs(i) && dfs_g2(i)) {
 			res++;
 		}
 	}
@@ -70,7 +74,7 @@ u32 brute() {
 }
 
 int main() {
-	// ios_base::sync_with_stdio(false); cin.tie(0);
+	ios_base::sync_with_stdio(false); cin.tie(0);
 	houses = ~houses;
 	// inp
 	for (int i = 0; i < N; i++) 
