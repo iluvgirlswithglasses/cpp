@@ -1,5 +1,5 @@
 
-// 9/10 tests
+// a better sol
 
 /*
 author: 	iluvgirlswithglasses 
@@ -19,6 +19,16 @@ set<int> s;
 int n, v;
 int res = I;
 
+void uassign(set<int>::iterator &p) {
+	if (p != s.end())
+		res = min(res, abs(v - *p));
+}
+
+void dassign(set<int>::iterator &p) {
+	if (p != s.begin())
+		res = min(res, abs(v - *--p));
+}
+
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	cin >> n >> v;
@@ -26,9 +36,9 @@ int main() {
 	//
 	for (int i = 1; i < n && res != 0; i++) {
 		cin >> v;
-		int l = *s.upper_bound(v), 
-			r = *s.lower_bound(v);
-		res = min(res, min( abs(v-l), abs(v-r) ));
+		set<int>::iterator p = s.lower_bound(v);
+		uassign(p);
+		dassign(p);
 		s.insert(v);
 	}
 	cout << res << "\n";
