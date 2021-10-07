@@ -1,4 +1,0 @@
-given the matrix N*M
-can one travels from [0, 0] to [N-1, M-1] ?
-
-for 2 move methods only
