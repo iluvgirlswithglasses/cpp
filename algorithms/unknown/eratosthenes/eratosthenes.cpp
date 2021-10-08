@@ -23,7 +23,7 @@ void eratosthenes() {
 }
 
 int main() {
-	ofstream out("out.txt");
+	ofstream out("_sub\\out.txt");
 	cout.rdbuf(out.rdbuf());
 	//
 	cin >> n;
