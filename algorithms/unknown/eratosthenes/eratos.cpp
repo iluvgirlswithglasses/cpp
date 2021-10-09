@@ -24,14 +24,17 @@ void eratosthenes() {
 
 int main() {
 	ofstream out("_sub\\out.txt");
-	cout.rdbuf(out.rdbuf());
 	//
 	cin >> n;
+	int cnt = 0;
 	eratosthenes();
 	for (int i = 0; i <= n; i++) {
-		if (is_prime(i)) cout << i << ", ";
+		if (is_prime(i)) {
+			out << i << ", ";
+			cnt++;
+		}
 	}
 	//
-	system("pause");
+	cout << cnt << "\n";
 	return 0;
 }
