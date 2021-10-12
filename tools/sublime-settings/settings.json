@@ -4,4 +4,9 @@
 	"color_scheme": "Packages/Color Scheme - Default/Mariana.sublime-color-scheme",
 	"dark_color_scheme": "Packages/Color Scheme - Default/Celeste.sublime-color-scheme",
 	"light_color_scheme": "Packages/Color Scheme - Default/Mariana.sublime-color-scheme",
+	"theme": "auto",
+	"ignored_packages":
+	[
+		"Vintage",
+	],
 }
