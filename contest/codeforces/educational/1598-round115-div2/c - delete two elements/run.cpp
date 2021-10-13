@@ -30,13 +30,8 @@ ll calc() {
 	m[a[0]] = 1;
 	for (int i = 1; i < n; i++) {
 		int pre = x - a[i];
-		if (m.find(pre) != m.end())
-			res += m[pre];
-		//
-		if (m.find(a[i]) == m.end())
-			m[a[i]] = 1;
-		else
-			m[a[i]]++;
+		res += m[pre];
+		m[a[i]]++;
 	}
 	return res;
 }
