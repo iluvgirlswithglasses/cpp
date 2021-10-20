@@ -8,6 +8,10 @@ tab-width:	4 spaces
 I sexually identify myself as an Attack Helicopter
 */
 
+// bài này sai vì chỉ đọc được 2 cách đổi
+// thay vì N cách đổi như collect-2
+// đờ mờ ông ghi đề
+
 #include <bits/stdc++.h>
 using namespace std;
 
