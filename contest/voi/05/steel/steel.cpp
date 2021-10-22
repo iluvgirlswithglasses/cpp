@@ -2,7 +2,7 @@
 /*
 author: 	iluvgirlswithglasses 
 github: 	https://github.com/iluvgirlswithglasses 
-created:	Fri Oct 22 11:39:33 2021
+created:	Fri Oct 22 19:11:10 2021
 tab-width:	4 spaces
 
 I sexually identify myself as an Attack Helicopter
@@ -30,16 +30,18 @@ const int N = 2e3+7;
 int n, m;
 ld a[N][2], b[N][2];
 
-int main() {
-	cin.tie(0)->sync_with_stdio(false);
-	cin >> n;
+void getinp() {
+	scanf("%d", &n);
 	for (int i = 0; i < n; i++)
-		cin >> a[i][0] >> a[i][1];
-	cin >> m;
+		scanf("%Lf %Lf", &a[i][0], &a[i][1]);
+	scanf("%d", &m);
 	for (int i = 0; i < m; i++)
-		cin >> b[i][0] >> b[i][1];
-	//
-	
+		scanf("%Lf %Lf", &b[i][0], &b[i][1]);
+}
+
+int main() {
+	ios_base::sync_with_stdio(false); cin.tie(0);
+	getinp();
 	return 0;
 }
 
