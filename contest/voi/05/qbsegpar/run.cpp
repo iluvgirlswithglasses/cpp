@@ -38,8 +38,6 @@ vector<int> compress() {
 
 /**
  * fenwich tree
- * 
- * dùng để hỗ trợ dp_min & dp_max
  * */
 int f_min[N], f_max[N];
 
@@ -89,12 +87,6 @@ void f_init() {
 /**
  * calc
  * */
-// dp_min[i]:
-// 		số tập tối thiểu để chia a[0..i] sao cho mỗi tập đều có tổng <= m
-// dp_max[i]:
-// 		số tập tối đa để chia a[0..i] sao cho mỗi tập đều có tổng <= m
-int dp_min[N], dp_max[N];
-
 bool valid(int m) {
 	f_init();
 	int mink = 0, maxk = 0;
