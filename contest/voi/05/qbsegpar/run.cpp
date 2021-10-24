@@ -38,6 +38,10 @@ vector<int> compress() {
 
 /**
  * fenwich tree
+ *
+ * công dụng của cái fenwick tree
+ * được mô tả dưới phần comment của @calc
+ * 
  * */
 int f_min[N], f_max[N];
 
@@ -85,6 +89,8 @@ void f_init() {
 
 
 /**
+ *
+ * calc
  * 
  * gọi mink[i] là số đoạn con ít nhất để chia a[0:i] ra thành các đoạn 
  * sao cho mỗi đoạn đều có `sum <= m`
@@ -110,8 +116,11 @@ bool valid(int m) {
 		// p[i] - p[j] <= m
 		// --> p[j] >= p[i] - m
 		int rank_j = lower_bound(v.begin(), v.end(), p[i] - m) - v.begin() + 1;
+		// lấy `mink[j]` & `maxk[j]` phù hợp
 		mink = min_get(rank_j) + 1;
 		maxk = max_get(rank_j) + 1;
+		// thêm `mink[i]` & `maxk[i]` vào fenwick tree,
+		// chuẩn bị cho những lần iterate kế tiếp
 		min_upd(c[i], mink);
 		max_upd(c[i], maxk);
 		// debug
