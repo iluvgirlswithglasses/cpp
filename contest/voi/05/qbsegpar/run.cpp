@@ -85,8 +85,23 @@ void f_init() {
 
 
 /**
- * calc
+ * 
+ * gọi mink[i] là số đoạn con ít nhất để chia a[0:i] ra thành các đoạn 
+ * sao cho mỗi đoạn đều có `sum <= m`
+ * 
+ * ta có hệ thức: `mink[i] = mink[j]+1`, 
+ *                sao cho `p[j] >= p[i] - m` và `mink[j]` cực tiểu
+ * 
+ * `mink[]` được biểu diễn bằng fenwick tree ở trên,
+ * không phải mink trong nội hàm `valid()`
+ * 
+ * trong đó: `min_get(X)` sẽ trả về `mink[j]` thỏa hệ thức
+ *           với `v[X] >= p[i] - m` và `v[X]` cực tiểu
+ * 
+ * tương tự với maxk[]
+ *
  * */
+
 bool valid(int m) {
 	f_init();
 	int mink = 0, maxk = 0;
