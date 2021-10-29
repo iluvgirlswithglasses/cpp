@@ -11,13 +11,12 @@ I sexually identify myself as an Attack Helicopter
 #include <iostream>
 using namespace std;
 
-int n;
-unsigned long long s;
+unsigned long long n, s;
 
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	cin >> n;
-	for (int i = 1; i <= n; i++)
+	for (unsigned long long i = 1; i <= n; i++)
 		s += i*(n-i+1);
 	cout << s << "\n";
 	return 0;

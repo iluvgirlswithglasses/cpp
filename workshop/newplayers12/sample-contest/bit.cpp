@@ -7,6 +7,7 @@ tab-width:	4 spaces
 
 I sexually identify myself as an Attack Helicopter
 */
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -19,11 +20,11 @@ int main() {
 	cin >> s;
 	//
 	int pre_cnt[2] = {0, 0};
-	int pre_typ = s[0];
+	int pre_typ = s[0] - '0';
 	pre_cnt[pre_typ]++;
 	//
 	for (int i = 1; i < s.length(); i++) {
-		bool a = s[i] - '0';
+		int a = s[i] - '0';
 		if (a == pre_typ) {
 			pre_cnt[a]++;
 		} else {
