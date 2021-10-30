@@ -6,6 +6,15 @@
 	},
 	"rules":
 	[
-		
+		{
+        	"class": "sidebar_label",
+	        "font.bold": false,
+	        "font.size": 13,
+	        "font.face": "Noto Sans",
+	    },
+	    {
+	    	"class": "sidebar_tree",
+	    	"space_rows": true,
+	    },
 	]
 }
