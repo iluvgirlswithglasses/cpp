@@ -8,22 +8,23 @@ tab-width:	4 spaces
 I sexually identify myself as an Attack Helicopter
 */
 
-#include <cstdio>
+#include <iostream>
 #include <vector>
 using namespace std;
 
 #define ll long long
 
-const int K = 22, N = 52;
-const ll  I = 5e10+7;
-int k, n, a[N];
+const ll K = 22, N = 52;
+const ll I = 5e10+7;
+ll k, n, a[N];
 
-bool valid(ll m, int k) {
-	vector<int> v(a, a+n);
+bool valid(ll m, ll k) {
+	vector<ll> v(a, a+n);
+	for (ll &i: v) if (i > m) i = m;
 	int i = 0;
 	while (k--) {
 		ll cr = 0;
-		while (i < n) {
+		while (i < n && cr < m) {
 			if (v[i] > m - cr) {
 				ll add = m - cr;
 				v[i] -= add;
@@ -33,20 +34,17 @@ bool valid(ll m, int k) {
 				v[i] = 0;
 				i++;
 			}
-			//
-			if (cr == m) break;
 		}
-		//
 		if (cr < m) return false;
 	}
 	return true;
 }
 
 int main() {		
-	// ios_base::sync_with_stdio(false); cin.tie(0);
-	scanf("%d %d", &k, &n);
-	for (int i = 0; i < n; i++)
-		scanf("%d", &a[i]);
+	ios_base::sync_with_stdio(false); cin.tie(0);
+	cin >> k >> n;
+	for (ll i = 0; i < n; i++)
+		cin >> a[i];
 	//
 	ll l = 0, r = I;
 	while (l < r) {
@@ -57,7 +55,7 @@ int main() {
 			r = m-1;
 		}
 	}
-	printf("%Ld\n", l);
+	cout << l << "\n";
 	return 0;
 }
 
