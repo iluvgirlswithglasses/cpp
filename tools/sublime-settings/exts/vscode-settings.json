@@ -126,4 +126,6 @@
     },
     "editor.fontSize": 16,
     "breadcrumbs.enabled": false,
+    "window.zoomLevel": 1,
+    "editor.fontFamily": "'Consolas'",
 }
