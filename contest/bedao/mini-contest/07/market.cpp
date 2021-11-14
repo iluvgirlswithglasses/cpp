@@ -21,7 +21,7 @@ const int N = 37;
 
 u64 n, x, a[N];
 
-vector<map<u64, int>> gen(int l, int r) {
+vector<map<u64, int>> gen(int l, int r, u64 &res) {
 	int len = r-l;
 	u64 lim = (1<<len);
 	// f[k][i]: số cách tạo tổng `i` từ `k` item
@@ -33,6 +33,7 @@ vector<map<u64, int>> gen(int l, int r) {
 			s += a[l+i];
 		}
 		f[k][s]++;
+		if (s % k == 0 && s / k == x) res++;
 	}
 	return f;
 }
@@ -47,11 +48,11 @@ void prf(vector<map<u64, int>> &f) {
 }
 
 u64 calc() {
-	auto f = gen(0, n>>1);
-	auto g = gen(n>>1, n);
-	u64  res = 0;
+	u64 res = 0;
+	auto f = gen(0, n>>1, res);
+	auto g = gen(n>>1, n, res);
 	//
-	prf(f); prf(g);
+	// prf(f); prf(g);
 	//
 	for (int k = 1; k < f.size(); k++)
 	for (auto pi: f[k]) {
