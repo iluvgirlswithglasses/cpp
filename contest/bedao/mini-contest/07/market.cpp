@@ -59,7 +59,7 @@ u64 calc() {
 		u64 s = pi.first, cnt = pi.second;
 		for (int kk = 1; kk < g.size(); kk++) {
 			u64 target = x * (k + kk) - s;
-			if (g[kk][target] > 0) res += cnt * g[kk][target];
+			res += cnt * g[kk][target];
 		}
 	}
 	return res;
