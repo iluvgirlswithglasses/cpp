@@ -6,62 +6,65 @@ int n, plog[N<<1];
 vector<int> adj[N];
 
 struct LCA {
-	/**
-	 * lca
-	 * */
-	vector<int> height, euler, first;
-	vector<bool> visited;
-	LCA() {
-		height.resize(n, 0);
-		first.resize(n, 0);
-		euler.reserve(n<<1);
-		visited.resize(n, false);
-		dfs(0, 0);
-		int m = euler.size();
-		st_build();
-	}
+    vector<int> height, euler, first, segtree;
+    vector<bool> visited;
 
-	void dfs(int u, int h) {
-		visited[u] = true;
-		height[u] = h;
-		first[u] = euler.size();
-		euler.push_back(u);
-		for (int v: adj[u]) if (!visited[v]) {
-			dfs(v, h+1);
-			euler.push_back(u);
-		}
-	}
+    LCA() {
+        height.resize(n);
+        first.resize(n);
+        euler.reserve(n * 2);
+        visited.assign(n, false);
+        dfs(0);
+        int m = euler.size();
+        segtree.resize(m * 4);
+        build(1, 0, m - 1);
+    }
 
-	int query(int u, int v) {
-		int l = first[u], r = first[v];
-		if (l > r) swap(l, r);
-		return st_query(l, r);
-	}
+    void dfs(int node, int h = 0) {
+        visited[node] = true;
+        height[node] = h;
+        first[node] = euler.size();
+        euler.push_back(node);
+        for (auto to : adj[node]) {
+            if (!visited[to]) {
+                dfs(to, h + 1);
+                euler.push_back(node);
+            }
+        }
+    }
 
+    void build(int node, int b, int e) {
+        if (b == e) {
+            segtree[node] = euler[b];
+        } else {
+            int mid = (b + e) / 2;
+            build(node << 1, b, mid);
+            build(node << 1 | 1, mid + 1, e);
+            int l = segtree[node << 1], r = segtree[node << 1 | 1];
+            segtree[node] = (height[l] < height[r]) ? l : r;
+        }
+    }
 
-	/**
-	 * sparse table
-	 * */
-	vector<vector<int>> st;
-	void st_build() {
-		int n = euler.size(), k = floor(plog[n]) + 1;
-		st.resize(n, vector<int>(k+1));
-		for (int i = 0; i < n; i++)
-			st[i][0] = euler[i];
-		for (int j = 1; j <= k; j++) {
-			for (int i = 0; i + (1<<j) <= n; i++) {
-				st[i][j] = min(
-					st[i][j-1],
-					st[i + (1<<(j-1))][j-1]
-				);
-			}
-		}
-	}
+    int query(int node, int b, int e, int L, int R) {
+        if (b > R || e < L)
+            return -1;
+        if (b >= L && e <= R)
+            return segtree[node];
+        int mid = (b + e) >> 1;
 
-	int st_query(int l, int r) {
-		int j = plog[r-l+1];
-		return min(st[l][j], st[r - (1<<j) + 1][j]);
-	}
+        int left = query(node << 1, b, mid, L, R);
+        int right = query(node << 1 | 1, mid + 1, e, L, R);
+        if (left == -1) return right;
+        if (right == -1) return left;
+        return height[left] < height[right] ? left : right;
+    }
+
+    int query(int u, int v) {
+        int left = first[u], right = first[v];
+        if (left > right)
+            swap(left, right);
+        return query(1, 0, euler.size() - 1, left, right);
+    }
 };
 
 
