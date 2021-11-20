@@ -3,3 +3,5 @@
                     I said farewell
 
                     Guess it's Someday in the Rain
+
+2021-November-20:   NVM the repos on AUR worked
