@@ -8,7 +8,7 @@ I'm dumb but I'm tryin'
 
 # Structures
 
-This repository serves all purposes. In other words, it's a mess *(But it's less miserable than me)*
+This repository serves all purposes. In other words, it's a mess *(but it's less miserable than me)*
 
 Many of the codes are out-dated. Don't look at files which are writen before June 2021 unless you're into gore.
 
