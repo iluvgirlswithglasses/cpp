@@ -19,6 +19,16 @@ BTW I use Arch
 using namespace std;
 
 /**
+ * 
+ * TUI ĐÃ CÓ THỂ 1 ĐẤM AC BÀI NÀY
+ * NHƯNG TUI MẮC 1 LỖI NHỎ Ở DÒNG 64
+ * 
+ * ĐÁNG LẼ NÊN ĐỂ VECTOR, NHƯNG LÚC TRƯỚC LỠ ĐỂ SET
+ * OH SHITTTTT TÍ NỮA THÌ PERFECT
+ * 
+ * */
+
+/**
  * @defs
  * */
 const int N = 1e5+7, I = 1e9+7;
@@ -51,10 +61,11 @@ pack dfs(int u, int p, int m) {
 		return pack(w[u], 0);
 	}
 	//
-	set<pack> child;
+	vector<pack> child;
 	for (int v: adj[u]) if (v != p) {
-		child.insert(dfs(v, u, m));
+		child.push_back(dfs(v, u, m));
 	}
+	sort(child.begin(), child.end());
 	//
 	pack res(w[u], 0);
 	for (pack i: child) {
