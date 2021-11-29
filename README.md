@@ -24,4 +24,4 @@ A wise ricer on *[r/unixporn](https://www.reddit.com/r/unixporn/)* once said:
 
 Thus, I should put anime girls everywhere I go too!
 
-![reimu](https://raw.githubusercontent.com/iluvgirlswithglasses/img-host/main/host/sippin'%20tea.gif)
+![reimu](https://raw.githubusercontent.com/iluvgirlswithglasses/img-host/main/host/sippin'%20tea%20-%20sqr.gif)
