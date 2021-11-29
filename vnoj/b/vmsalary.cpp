@@ -15,11 +15,8 @@ BTW I use Arch
 
 #include <iostream>
 #include <vector>
-#include <set>
 #include <algorithm>
 using namespace std;
-
-#include <cstdio>	// debug
 
 /*
 	số bộ thỏa ở nốt a
@@ -31,7 +28,7 @@ using namespace std;
 
 /** defs */
 struct worker {
-	int index, salary, l, r;
+	int salary, l, r;
 };
 
 #define ll long long
@@ -42,19 +39,6 @@ int n;
 worker a[N];
 ll res;
 vector<int> adj[N];
-
-/** utils */
-void compress() {
-	set<int> s;
-	for (int i = 0; i < n; i++) {
-		s.insert(a[i].salary);
-	}
-	vector<int> v(s.begin(), s.end());
-	for (int i = 0; i < n; i++) {
-		a[i].salary = lower_bound(v.begin(), v.end(), a[i].salary) - v.begin() + 1;
-		a[i].index = i;
-	}
-}
 
 /** 
  * segment tree 
@@ -98,7 +82,6 @@ int main() {
 		adj[--p].push_back(i);
 	}
 	//
-	compress();
 	dfs(0);
 	fn = n<<1;
 	//
