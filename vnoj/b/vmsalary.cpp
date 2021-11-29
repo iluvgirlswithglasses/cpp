@@ -88,7 +88,7 @@ int main() {
 	sort(a, a+n, [](worker& a, worker& b){
 		return a.salary < b.salary;
 	});
-	vector<int> to_upd = {a[0].l, a[0].r};
+	vector<int> to_upd = {a[0].l}; // vector<int> to_upd = {a[0].l, a[0].r};
 	// 
 	for (int i = 1; i < n; i++) {
 		if (a[i].salary > a[i-1].salary) {
@@ -96,11 +96,11 @@ int main() {
 			to_upd.clear();
 		}
 		// số phần tử trong đoạn của cây đã làm phẳng == số đệ
-		ll has = get(a[i].l+1, a[i].r)>>1;
+		ll has = get(a[i].l+1, a[i].r); // ll has = get(a[i].l+1, a[i].r)>>1;
 		res += has*(has-1)>>1;
 		//
 		to_upd.push_back(a[i].l);
-		to_upd.push_back(a[i].r);
+		// to_upd.push_back(a[i].r);
 	}
 	//
 	cout << res << "\n";
