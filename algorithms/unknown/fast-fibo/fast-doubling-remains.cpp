@@ -8,11 +8,11 @@ using namespace std;
 #define nd second
 #define ll long long
 
-const int R = 1e9+7;
+const ll R = 1e9+7;
 
 pair<ll, ll> fib(ll n) {
     if (n == 0)
-        return {0, 1};
+        return {0ll, 1ll};
 
     pair<ll, ll> p = fib(n >> 1);
     ll c = p.st * ( ((p.nd<<1) - p.st + R) % R ); c %= R;
@@ -23,7 +23,12 @@ pair<ll, ll> fib(ll n) {
 }
 
 int main() {
-    int n; cin >> n;
-    cout << fib(--n).nd << endl;
+    ios_base::sync_with_stdio(false); cin.tie(0);
+    ll n; cin >> n;
+    if (n == 0) {
+        cout << 0 << "\n";
+    } else {
+        cout << fib(--n).nd << "\n";
+    }
     return 0;
 }
