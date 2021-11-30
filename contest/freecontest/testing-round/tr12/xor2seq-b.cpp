@@ -16,8 +16,8 @@ BTW I use Arch
 #include <iostream>
 using namespace std;
 
-const int N = 1e3+7;
-int n, res, a[N], b[N], s[N*N];
+const int N = 1e5+7;
+int n, res, a[N], b[N];
 
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
@@ -28,10 +28,8 @@ int main() {
 		cin >> b[i];
 	for (int i = 0; i < n; i++)
 	for (int j = 0; j < n; j++)
-		s[i*n+j] = a[i] + b[j];
+		res ^= a[i] + b[j];
 	//
-	for (int i = 0; i < n*n; i++)
-		res ^= s[i];
 	cout << res << "\n";
 	return 0;
 }
