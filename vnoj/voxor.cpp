@@ -67,27 +67,9 @@ void insert(bool* bitset) {
 	++p->cnt;
 }
 
-// xor toàn bộ số trong a
-// --> swapping children ~~
-// O(??)
-void update(node* p, int bit, bool* bitset) {
-	// node ở tầng bit-1 sẽ swap 2 node ở tầng bit với nhau
-	// nếu bitset yêu cầu điều đó
-	if (bitset[bit])  {
-		swap(p->child[0], p->child[1]);
-		swap(p->childcnt[0], p->childcnt[1]);
-	}
-	//
-	for (int v = 0; v < 2; v++) {
-		if (p->child[v] != NULL) {
-			update(p->child[v], bit+1, bitset);
-		}
-	}
-}
-
 // lấy ra số lớn thứ `k` trong cây trie
 // O(32)
-int get_kth(int n, int k) {
+int get_kth(int n, int k, bool* xorstate) {
 	int res = 0;
 	// số lớn thứ k == số nhỏ thứ n - k + 1
 	// ở đây lưu ý là có shift xuống 1 đơn vị 
@@ -95,16 +77,19 @@ int get_kth(int n, int k) {
 	node* p = root;	
 	//
 	for (int i = 0; i < BITS; i++) {
-		int smaller_cnt = p->childcnt[0];
+		// nếu có swap
+		bool s = xorstate[i];
+		//
+		int smaller_cnt = p->childcnt[s];	// thật ra thì s == index của nhánh nhỏ hơn
 		if (smaller_cnt <= k) {
 			// lớn hơn toàn bộ nhánh trái
 			// --> cút ra phải
 			k -= smaller_cnt;
-			p = p->child[1];
+			p = p->child[!s];
 			res |= 1<<(BITS-1-i);
 		} else {
 			// thuộc về nhánh trái
-			p = p->child[0];
+			p = p->child[s];
 		}
 	}
 	// tới nước này thì k nên = 0
@@ -114,7 +99,7 @@ int get_kth(int n, int k) {
 /** 
  * @ vars 
  **/
-int n, q, pending;
+int n, q, xorstate;
 
 /** 
  * @ drivers 
@@ -137,15 +122,10 @@ int main() {
 		cin >> typ >> x;
 		//
 		if (typ == "FIND") {
-			// dec2bin(pending);
-			// update(root, 0, bitset);	// upd quá lâu
-			pending = 0;
-			cout << get_kth(n, x) << "\n";
+			dec2bin(xorstate);
+			cout << get_kth(n, x, bitset) << "\n";
 		} else {
-			// đợi được bao nhiêu
-			// hay được bấy nhiêu cho anh update() 
-			// cái anh mà mình thậm chí k tính đc đpt
-			pending ^= x;
+			xorstate ^= x;
 		}
 	}
 	return 0;
