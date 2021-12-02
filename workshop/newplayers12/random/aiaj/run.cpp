@@ -59,9 +59,9 @@ int main() {
 	cin >> n;
 	for (int i = 1; i <= n; i++) {
 		cin >> a;
-		res += cnt[a - sqr[i]];
 		if (a + exx[i] < I)
 			cnt[a + exx[i]]++;
+		res += cnt[a - sqr[i]];
 	}
 	cout << res << "\n";
 	return 0;
