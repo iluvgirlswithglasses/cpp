@@ -54,7 +54,7 @@ int state[N];
 // amecnt:  số hang em phải đào, default = 0
 int yukicnt, amecnt;
 // các hang mà mẹ phải đào, sắp xếp theo thứ tự thăm ~viếng~
-vector<int> hana;
+int hana[N], hanacnt;
 
 
 /**
@@ -66,7 +66,7 @@ bool dfs(int u) {
 	// there is at least one solution
 	// which HANA would dig at least 1 cave
 	state[u] = HANA;
-	hana.push_back(u);
+	hana[hanacnt++] = u;
 	// nếu giao hàng này cho hana là xong việc
 	if (--yukicnt == amecnt) {
 		return true;	// we're done
@@ -80,7 +80,7 @@ bool dfs(int u) {
 	//
 	state[u] = AME;
 	amecnt++;
-	hana.pop_back();
+	hanacnt--;
 	// nếu giao hang này cho ame là xong việc
 	return amecnt == yukicnt;
 }
@@ -101,18 +101,20 @@ int main() {
 	}
 	//
 	dfs(0);
-	vector<int> res[3];
-	for (int i = 0; i < n; i++)
-		res[ state[i] ].push_back(i);
-	cout << n - yukicnt - amecnt << " " << yukicnt << "\n";
+	cout << hanacnt << " " << yukicnt << "\n";
 	// in ra các hang hana đào
 	// theo đúng thứ tự bfs
-	for (int j: hana) cout << j+1 << " ";
+	for (int i = 0; i < hanacnt; i++)
+		cout << hana[i] + 1 << " ";
 	cout << "\n";
 	// ame to yuki
-	for (int i = 0; i < 2; i++) {
-		for (int j: res[i]) cout << j+1 << " ";
-		cout << "\n";
+	for (int i = 0; i < n; i++) {
+		if (state[i] == YUKI) cout << i+1 << " ";
 	}
+	cout << "\n";
+	for (int i = 0; i < n; i++) {
+		if (state[i] == AME) cout << i+1 << " ";
+	}
+	cout << "\n";
 	return 0;
 }
