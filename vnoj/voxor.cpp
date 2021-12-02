@@ -13,7 +13,6 @@ BTW I use Arch
 */
 
 #include <iostream>
-#include <cstring>
 #include <string>
 using namespace std;
 
@@ -25,7 +24,6 @@ const int BITS = 32;
 bool* bitset;
 
 void dec2bin(int n) {
-	memset(bitset, 0, BITS);
 	for (int i = 0; i < BITS; i++) {
 		bitset[BITS-1-i] = (n>>i)&1;
 	}
@@ -89,7 +87,6 @@ void update(node* p, int bit, bool* bitset) {
 
 // lấy ra số lớn thứ `k` trong cây trie
 // O(32)
-// ... trên lý thuyết là v, nhưng k hiểu sao chạy lâu vl
 int get_kth(int n, int k) {
 	int res = 0;
 	// số lớn thứ k == số nhỏ thứ n - k + 1
@@ -140,8 +137,8 @@ int main() {
 		cin >> typ >> x;
 		//
 		if (typ == "FIND") {
-			dec2bin(pending);
-			update(root, 0, bitset);
+			// dec2bin(pending);
+			// update(root, 0, bitset);	// upd quá lâu
 			pending = 0;
 			cout << get_kth(n, x) << "\n";
 		} else {
