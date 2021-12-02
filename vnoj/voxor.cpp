@@ -38,13 +38,16 @@ void dec2bin(int n) {
 // years of practicing pointers... not wasted
 // (actually I've been using C++ for just a year)
 struct node {
-	node* child[2];
 	int cnt;	// số string (bitset) kết thúc với node này
+	node* child[2];
+	int childcnt[2];	// child[i]: số string từ node con i trở xuống
 
 	node() {
+		cnt = 0;
 		child[0] = NULL;
 		child[1] = NULL;
-		cnt = 0;
+		childcnt[0] = 0; 
+		childcnt[1] = 0;
 	}
 };
 
@@ -58,6 +61,9 @@ void insert(bool* bitset) {
 		bool nxt = bitset[i];
 		if (p->child[nxt] == NULL) 
 			p->child[nxt] = new node();
+		// ghi nhận xuất hiện của 1 đứa child mới
+		++p->childcnt[nxt];
+		//
 		p = p->child[nxt];
 	}
 	++p->cnt;
@@ -68,8 +74,10 @@ void insert(bool* bitset) {
 void update(node* p, int bit, bool* bitset) {
 	// node ở tầng bit-1 sẽ swap 2 node ở tầng bit với nhau
 	// nếu bitset yêu cầu điều đó
-	if (bitset[bit]) 
+	if (bitset[bit])  {
 		swap(p->child[0], p->child[1]);
+		swap(p->childcnt[0], p->childcnt[1]);
+	}
 	//
 	for (int v = 0; v < 2; v++) {
 		if (p->child[v] != NULL) {
@@ -80,11 +88,26 @@ void update(node* p, int bit, bool* bitset) {
 
 // lấy ra số lớn thứ `k` trong cây trie
 int get_kth(int n, int k) {
-	// cr: store the current rank
-	int res = 0, cr = 0;
+	int res = 0;
+	// số lớn thứ k == số nhỏ thứ n - k + 1
+	// ở đây lưu ý là có shift xuống 1 đơn vị 
+	k = n - k;	
+	node* p = root;			
 	//
-	
-	//
+	for (int i = 0; i < BITS; i++) {
+		int smaller_cnt = p->childcnt[0];
+		if (smaller_cnt <= k) {
+			// to hơn nhánh trái
+			// --> cút ra phải
+			p = p->child[1];
+			res |= 1<<(BITS - 1 - i);
+			k -= smaller_cnt;
+		} else {
+			// chạy đâu
+			p = p->child[0];
+		}
+	}
+	// tới nước này thì k nên = 0
 	return res;
 }
 
@@ -93,32 +116,11 @@ int get_kth(int n, int k) {
  **/
 int n, q;
 
-/**
- * @ debug
- * */
-#include <vector>
-
-void dfs(node* p, vector<int>& pre) {
-	if (p->cnt > 0) {
-		cout << "x" << p->cnt << ": ";
-		for (int i: pre) cout << i;
-		cout << "\n";
-	}
-	//
-	for (int v = 0; v < 2; v++) {
-		if (p->child[v] != NULL) {
-			pre.push_back(v);
-			dfs(p->child[v], pre);
-			pre.pop_back();
-		}
-	}
-}
-
 /** 
  * @ drivers 
  **/
 int main() {
-	// ios_base::sync_with_stdio(false); cin.tie(0);
+	ios_base::sync_with_stdio(false); cin.tie(0);
 	bitset = new bool[BITS];
 	root = new node();
 	//
@@ -141,8 +143,5 @@ int main() {
 			update(root, 0, bitset);
 		}
 	}
-	// debug
-	vector<int> pre;
-	dfs(root, pre);
 	return 0;
 }
