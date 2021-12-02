@@ -21,8 +21,11 @@ using namespace std;
 #include <cstdio>	// debug
 
 /*
-hiện thì bài này chỉ đúng nếu như đồ thị được cho là CÂY
-BRUH
+what ???
+tf ????
+I was so certain my method can be used on tree only
+
+I gotta submit this again to see if the server wasn't drunk
 */
 
 /**
@@ -50,8 +53,8 @@ int state[N];
 // yukicnt: số hang chị phải đào, mặc định = n
 // amecnt:  số hang em phải đào, default = 0
 int yukicnt, amecnt;
-// history[i] == hang được thăm thứ i trong dfs
-int history[N], hiscnt;
+// các hang mà mẹ phải đào, sắp xếp theo thứ tự thăm ~viếng~
+vector<int> hana;
 
 
 /**
@@ -63,7 +66,7 @@ bool dfs(int u) {
 	// there is at least one solution
 	// which HANA would dig at least 1 cave
 	state[u] = HANA;
-	history[hiscnt++] = u;
+	hana.push_back(u);
 	// nếu giao hàng này cho hana là xong việc
 	if (--yukicnt == amecnt) {
 		return true;	// we're done
@@ -77,6 +80,7 @@ bool dfs(int u) {
 	//
 	state[u] = AME;
 	amecnt++;
+	hana.pop_back();
 	// nếu giao hang này cho ame là xong việc
 	return amecnt == yukicnt;
 }
@@ -99,20 +103,15 @@ int main() {
 	dfs(0);
 	vector<int> res[3];
 	for (int i = 0; i < n; i++)
-		res[ state[i] ].push_back(i+1);
+		res[ state[i] ].push_back(i);
 	cout << n - yukicnt - amecnt << " " << yukicnt << "\n";
 	// in ra các hang hana đào
 	// theo đúng thứ tự bfs
-	set<int> hana(res[HANA].begin(), res[HANA].end());
-	for (int i = 0; i < n; i++) {
-		if (hana.find(history[i]) != hana.end()) 
-			cout << history[i] << " ";
-	}
+	for (int j: hana) cout << j+1 << " ";
 	cout << "\n";
 	// ame to yuki
 	for (int i = 0; i < 2; i++) {
-		for (int j: res[i]) 
-			cout << j << " ";
+		for (int j: res[i]) cout << j+1 << " ";
 		cout << "\n";
 	}
 	return 0;
