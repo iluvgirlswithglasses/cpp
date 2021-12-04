@@ -34,8 +34,8 @@ int org[K], wincnt;
 
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
-	freopen("SUPERSCH.INP", "r", stdin);
-	freopen("SUPERSCH.OUT", "w", stdout);
+	// freopen("SUPERSCH.INP", "r", stdin);
+	// freopen("SUPERSCH.OUT", "w", stdout);
 	//
 	cin >> n >> k;
 	n--;
