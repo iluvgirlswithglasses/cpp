@@ -1,0 +1,1 @@
+b summod.cpp SUMMOD/input.$1 && cat SUMMOD/output.$1
