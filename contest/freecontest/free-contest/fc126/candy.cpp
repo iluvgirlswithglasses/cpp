@@ -23,6 +23,7 @@ Me myself could only figure it out that
 I need to use bitmask 2^8 & sweep line to solve this problem
 
 Yet I had no idea how to implement the fkin sweep line in this problem
+i realize that... my implementation skill isn't that great at all.
 
 Therefore, I took a peek at a sol <(") srry if this and the sol resemble each other
 I did not copy-paste, but the idea were theirs.
