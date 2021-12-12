@@ -26,11 +26,10 @@ int n, a[N];
 /** 
  * @perf 
  * */
-int cnt[N], remain;
+int cnt[N];
 
 int calc(int k) {
 	memset(cnt, 0, (n+1) * sizeof(cnt[0]));
-	remain = 0;
 	//
 	for (int i = 0; i < k; i++) {
 		cnt[a[i]]++;
