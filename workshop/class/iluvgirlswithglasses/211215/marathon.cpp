@@ -37,8 +37,10 @@ vector<node> adj[N];
  * @ perf
  * */
 void dfs(int u, int p, int dis, int cnt, vector<int>& res) {
-	if (dis >= k)
+	if (dis == k) {
 		res.push_back(cnt);
+		return;
+	}
 	for (node& i: adj[u]) if (i.v != p) {
 		dfs(i.v, u, dis + i.c, cnt + 1, res);
 	}

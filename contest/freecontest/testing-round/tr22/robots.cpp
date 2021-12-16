@@ -51,7 +51,7 @@ int main() {
 	sort(a, a+m);
 	//
 	for (int _i = 0; _i < m; _i++) {
-		int x = a[_i].x, i = a[_i].i, t = a[_i].t;
+		int i = a[_i].i, t = a[_i].t;
 		if (t == 0) {
 			// open
 			dp[i] = fin + 1;
