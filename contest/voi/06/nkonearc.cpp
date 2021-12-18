@@ -23,16 +23,15 @@ using namespace std;
 liên thông toàn phần 
 --> mỗi đỉnh có bậc vào == bậc ra 
 
-đồ thị không liên thông toàn phần
---> có ít nhất 1 đỉnh có bậc vào == 0
-
-vậy mục tiêu là nối đỉnh có bậc vào to nhất
-vào một đỉnh khác có bậc vào == 0
+may mắn là chỉ cần nối 1 cặp đỉnh
+nên mình tham lam bằng cách lấy đỉnh có bậc vào to nhất
+nối với đỉnh có bậc vào bé nhất
 
 rồi kiểm tra xem đồ thị liên thông toàn phần hay chưa
 nếu rồi, in ra cạnh nối
 
-nếu chưa thì in NO
+nếu chưa thì in NO, 
+vì khi này độ thị cần nối > 1 cạnh để liên thông toàn phần
 */
 
 /** @ defs & vars */
@@ -67,7 +66,7 @@ void get_access_degree() {
 /** @ drivers */
 bool check() {
 	for (int i = 0; i < n; i++)
-		if (fi[i] != n-1 || fo[i] != n-1) return false;
+		if (fi[i] != fo[i]) return false;
 	return true;
 }
 
@@ -81,8 +80,8 @@ int main() {
 	}
 	//
 	get_access_degree();
-	int u = max_element(fi, fi+n) - fi;	// bậc vào cao nhất
-	int v = find(fi, fi+n, 0) - fi;		// bậc vào == 0
+	int u = max_element(fi, fi+n) - fi;	// bậc vào to nhất
+	int v = min_element(fi, fi+n) - fi;	// bậc vào bé nhất
 	adj[u].push_back(v);
 	//
 	memset(fi, 0, sizeof fi);
