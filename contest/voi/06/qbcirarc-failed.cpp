@@ -30,9 +30,21 @@ using namespace std;
 /**
  * @ defs
  * */
+#define pi pair<int, int>
+#define st first
+#define nd second
+const int N = 1002, M = 20002;
+
+int n, m;
+int v2id[N][N];		// v2id[u][v]: id của cạnh nối 2 đỉnh u & v
+pi  edge[M];
+vector<int> adj[N];
+bool visited[N];
+
+bool __has[M];
+int  __cnt;
 struct Result {
 	bool has_circle;
-	vector<int> weaks;	// luôn đc sort
 
 	Result() {
 		has_circle = false;
@@ -42,17 +54,20 @@ struct Result {
 		if (!has_circle) {
 			//
 			has_circle = true;
-			weaks.assign(v.begin(), v.end());
-			sort(weaks.begin(), weaks.end());
+			__cnt = v.size();
+			for (int i: v) __has[i] = true;
+
 		} else {
 			// cả 2 thằng phải đều có
-			set<int> s(v.begin(), v.end());
-			vector<int> u;
-			for (int i: weaks) 
-				if (s.find(i) != s.end()) u.push_back(i);
-			weaks.assign(u.begin(), u.end());
+			set<int> s(v.begin(), v.end());	// s chỉ chứa những index đã có trong __has
+			for (int i = 0; i < m; i++) {
+				if (__has[i] && s.find(i) == s.end()) {
+					__has[i] = false;
+					__cnt--;
+				}
+			}
 			// không tồn tại cây xung yếu
-			if (weaks.size() == 0) {
+			if (__cnt == 0) {
 				has_circle = false;
 				return true;
 			}
@@ -60,37 +75,13 @@ struct Result {
 		return false;
 	}
 
-	bool has(int i) {
-		// trường hợp chưa có circle thì mọi cạnh đều đc trace
-		if (!has_circle) return true;
-		// ktra xem có cạnh i trong weaks hay k
-		int l = 0, r = weaks.size() - 1;
-		while (l < r) {
-			int m = (l + r + 1) >> 1;
-			if (weaks[m] <= i) {
-				l = m;
-			} else {
-				r = m-1;
-			}
-		}
-		return weaks[l] == i;
+	vector<int> get() {
+		vector<int> r;
+		for (int i = 0; i < m; i++) 
+			if (__has[i]) r.push_back(i);
+		return r;
 	}
 } res;
-
-#define pi pair<int, int>
-#define st first
-#define nd second
-const int N = 1004, M = 20004;
-
-
-/**
- * @ vars
- * */
-int n, m;
-int v2id[N][N];		// v2id[u][v]: id của cạnh nối 2 đỉnh u & v
-pi  edge[M];
-vector<int> adj[N];
-bool visited[N];
 
 
 /**
@@ -98,7 +89,7 @@ bool visited[N];
  * */
 bool dfs(int src, int u, vector<int>& trace) {
 	for (int v: adj[u]) {
-		bool traced = res.has(v2id[u][v]);
+		bool traced = !res.has_circle || __has[ v2id[u][v] ];
 		if (traced)
 			trace.push_back(v2id[u][v]);
 		//
@@ -146,14 +137,15 @@ int main() {
 	}
 	// returns
 	if (res.has_circle) {
-		sort(res.weaks.begin(), res.weaks.end(), [&](int i, int j){
+		vector<int> weaks = res.get();
+		sort(weaks.begin(), weaks.end(), [&](int i, int j){
 			if (edge[i].st == edge[j].st) 
 				return edge[i].nd < edge[j].nd;
 			return edge[i].st < edge[j].st;
 		});
 		//
-		cout << res.weaks.size() << "\n";
-		for (int i: res.weaks) {
+		cout << weaks.size() << "\n";
+		for (int i: weaks) {
 			cout << edge[i].st + 1 << " " << edge[i].nd + 1 << "\n";
 		}
 	} else {
