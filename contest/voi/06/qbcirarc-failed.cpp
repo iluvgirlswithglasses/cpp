@@ -13,6 +13,11 @@ I sexually identify myself as an Attack Helicopter
 BTW I use Arch
 */
 
+/*
+time complexity: O(n*mlog(n))
+basically can't AC this
+*/
+
 #include <iostream>
 #include <vector>
 #include <set>
@@ -27,7 +32,7 @@ using namespace std;
  * */
 struct Result {
 	bool has_circle;
-	vector<int> weaks;
+	vector<int> weaks;	// luôn đc sort
 
 	Result() {
 		has_circle = false;
@@ -37,7 +42,8 @@ struct Result {
 		if (!has_circle) {
 			//
 			has_circle = true;
-			for (int i: v) weaks.push_back(i);
+			weaks.assign(v.begin(), v.end());
+			sort(weaks.begin(), weaks.end());
 		} else {
 			// cả 2 thằng phải đều có
 			set<int> s(v.begin(), v.end());
@@ -52,6 +58,22 @@ struct Result {
 			}
 		}
 		return false;
+	}
+
+	bool has(int i) {
+		// trường hợp chưa có circle thì mọi cạnh đều đc trace
+		if (!has_circle) return true;
+		// ktra xem có cạnh i trong weaks hay k
+		int l = 0, r = weaks.size() - 1;
+		while (l < r) {
+			int m = (l + r + 1) >> 1;
+			if (weaks[m] <= i) {
+				l = m;
+			} else {
+				r = m-1;
+			}
+		}
+		return weaks[l] == i;
 	}
 } res;
 
@@ -74,22 +96,27 @@ bool visited[N];
 /**
  * @ perf
  * */
-bool dfs(int u, vector<int>& trace) {
+bool dfs(int src, int u, vector<int>& trace) {
 	for (int v: adj[u]) {
-		trace.push_back(v2id[u][v]);
-		if (visited[v]) {
+		bool traced = res.has(v2id[u][v]);
+		if (traced)
+			trace.push_back(v2id[u][v]);
+		//
+		if (v == src) {
 			// detect circle
-			if (res.add_circle(trace)) 
+			if (res.add_circle(trace)) {
 				// has 2 or more circles without a shared edge
 				// --> break program
 				return true;
-		} else {
+			}
+		} else if (!visited[v]) {
 			visited[v] = true;
-			if (dfs(v, trace)) 
+			if (dfs(src, v, trace)) 
 				return true;
 			visited[v] = false;
 		}
-		trace.pop_back();
+		if (traced)
+			trace.pop_back();
 	}
 	//
 	return false;
@@ -99,16 +126,6 @@ bool dfs(int u, vector<int>& trace) {
 /**
  * @ drivers
  * */
-vector<string> edges2str() {
-	vector<string> r;
-	for (int i: res.weaks) {
-		string s = to_string(edge[i].st + 1) + " " + to_string(edge[i].nd + 1);
-		r.push_back(s);
-	}
-	sort(r.begin(), r.end());
-	return r;
-}
-
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	cin >> n >> m;
@@ -125,13 +142,20 @@ int main() {
 		memset(visited, false, sizeof visited);
 		visited[i] = true;
 		vector<int> trace;
-		if (dfs(i, trace)) break;
+		if (dfs(i, i, trace)) break;
 	}
 	// returns
 	if (res.has_circle) {
+		sort(res.weaks.begin(), res.weaks.end(), [&](int i, int j){
+			if (edge[i].st == edge[j].st) 
+				return edge[i].nd < edge[j].nd;
+			return edge[i].st < edge[j].st;
+		});
+		//
 		cout << res.weaks.size() << "\n";
-		vector<string> prf = edges2str();
-		for (string s: prf) cout << s << "\n";
+		for (int i: res.weaks) {
+			cout << edge[i].st + 1 << " " << edge[i].nd + 1 << "\n";
+		}
 	} else {
 		cout << "-1\n";
 	}
