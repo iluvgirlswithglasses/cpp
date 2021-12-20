@@ -13,6 +13,8 @@ I sexually identify myself as an Attack Helicopter
 BTW I use Arch
 */
 
+// VNOI's server can handle this program, not my computer
+
 #include <iostream>
 #include <string>
 using namespace std;
