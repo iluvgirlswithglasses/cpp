@@ -53,8 +53,8 @@ ll nCk(ll n, ll k) {
 	for (int i = 2; i <= k; i++) 
 		b = (b * i) % R;
 	// Fermat little theorem
-	// a^(p-2) = a^-1
-	// --> lôi đầu k! lên tử số với n(n-1)...(n-k+1)
+	// (a/b)%R = (a * b^(R-2)) % R
+	// đk: R là số nguyên tố
 	ll res = (a * fast_exponential(b, R-2)) % R;
 	return res;
 }
