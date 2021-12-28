@@ -12,3 +12,12 @@ Feeling neutral. No hope but no pain whatsoever.
 
 After day 1: Obokuri-Eeumi was chose to be the ending theme.  
 I have one day left but... It's over now? Kither had 2.5/3 done. I had 1.5. And there's even a guy from Tran Dai Nghia who destroyed 3/3 within 1.5 hours. I mean... yeah no one have known the result just yet but... What's the point now
+
+Easier version of Q1:  
+https://oj.vnoi.info/problem/coci1617_r4_kas
+
+Easier version of Q2:  
+https://oj.vnoi.info/problem/fc091_nmarket
+
+Similar version of Q3:  
+https://cses.fi/problemset/task/1136
