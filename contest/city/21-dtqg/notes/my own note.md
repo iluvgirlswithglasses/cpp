@@ -21,3 +21,7 @@ https://oj.vnoi.info/problem/fc091_nmarket
 
 Similar version of Q3:  
 https://cses.fi/problemset/task/1136
+
+### After the result came
+
+### HOLY F I DID IT
