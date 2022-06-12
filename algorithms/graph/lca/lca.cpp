@@ -1,3 +1,9 @@
+
+/**
+ * this is the sample implementation from cp-algorithm
+ * my favorite implementation is written in vnoj/paths-old.cpp
+ * */
+
 #include <bits/stdc++.h>
 using namespace std;
 
