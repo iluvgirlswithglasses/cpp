@@ -26,7 +26,7 @@ baa
 baaaaa
 bbbbaa
 
-given 2 strings with a same letter different mod 3 ((cntA - cntB) % 3)
+given 2 strings with a same *letter difference mod 3* ((cntA - cntB) % 3)
 there's always a way to transform from one to another
 */
 
