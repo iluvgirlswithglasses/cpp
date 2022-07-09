@@ -24,11 +24,8 @@ int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	cin >> n >> q >> s;
 	for (int i = 1; i < n; i++) {
-		if (s[i-1] == '(' && s[i] == ')')
-			p[i] = 1;
-		else
-			p[i] = 0;
 		p[i] += p[i-1];
+		if (s[i-1] == '(' && s[i] == ')') p[i]++;
 	}
 	while (q--) {
 		cin >> l >> r;
