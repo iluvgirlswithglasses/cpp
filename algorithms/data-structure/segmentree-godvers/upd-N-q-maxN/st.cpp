@@ -15,13 +15,13 @@ void assign(int i, int v) {
 	if (i < n) d[i] += v;
 }
 
-void build(int i) {
+void push(int i) {
 	for (i >>= 1; i > 0; i >>= 1) {
 		t[i] = max(t[i<<1], t[i<<1|1]) + d[i];
 	}
 }
 
-void push(int p) {
+void pull(int p) {
 	for (int _i=h, i=p>>_i; _i > 0; _i--, i=p>>_i) {
 		//
 		assign(i<<1, d[i]); 
@@ -40,12 +40,12 @@ void update(u32 l, u32 r, int v) {
 		if (l&1) assign(l++, v);
 		if (r&1) assign(--r, v);
 	}
-	build(l0); build(r0-1);
+	push(l0); push(r0-1);
 }
 
 int query(u32 l, u32 r) {
-	l+=n; push(l); 
-	r+=n; push(r-1);
+	l+=n; pull(l); 
+	r+=n; pull(r-1);
 	//
 	int res = -I;
 	for (; l < r; l>>=1, r>>=1) {
