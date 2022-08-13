@@ -125,6 +125,7 @@ struct LCA {
 // heavy light decomposition implementation
 struct HLD {
 
+	// SegTree updates and queries the value of the flatten tree (index[N])
 	struct SegTree {
 		int f[N<<1];
 
