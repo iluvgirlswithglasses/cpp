@@ -63,34 +63,23 @@ struct LCA {
 
 	struct SegTree {
 		int n;
-		pi f[N<<2];	// f[i]: {index, depth}
+		pi f[N<<2];	// f[i]: {depth, index}
 
 		void build(vector<int>& euler, vector<int>& depth) {
 			n = euler.size();
-			for (int i = 0; i < n; i++) {
-				f[i+n] = make_pair(euler[i], depth[euler[i]]);
-			}
-			for (int i = n-1; i > 0; i--) {
-				if (f[i<<1].nd < f[i<<1|1].nd)
-					f[i] = f[i<<1];
-				else
-					f[i] = f[i<<1|1];
-			}
+			for (int i = 0; i < n; i++)
+				f[i+n] = make_pair(depth[euler[i]], euler[i]);
+			for (int i = n-1; i > 0; i--)
+				f[i] = min(f[i<<1], f[i<<1|1]);
 		}
 
 		int get(int l, int r) {
-			int res = -1, mn = 2e9;
+			pi res = make_pair(2e9, -1);
 			for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
-				if (l&1) {
-					if (f[l].nd < mn) res = f[l].st, mn = f[l].nd;
-					l++;
-				}
-				if (r&1) {
-					r--;
-					if (f[r].nd < mn) res = f[r].st, mn = f[r].nd;
-				}
+				if (l&1) res = min(res, f[l++]);
+				if (r&1) res = min(res, f[--r]);
 			}
-			return res;
+			return res.nd;
 		}
 	} segtree;
 
