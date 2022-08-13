@@ -90,11 +90,22 @@ struct HLD {
 			init(v);
 		}
 	}
+
+	void update(int u, int v) {
+		while (true) {
+			if (chain[u] == chain[v]) {
+				segtree.update(index[u], index[v], -1);
+				break;
+			} else {
+				segtree.update(index[head[u]], index[u], -1)
+				u = parent[head[u]]
+			}
+		}
+	}
 } hld;
 
 void debug() {
-	for (int i = 0; i <= n; i++)
-		cout << hld.
+
 }
 
 int main() {
