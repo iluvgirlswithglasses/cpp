@@ -2,6 +2,7 @@
 /**
  * this is the sample implementation from cp-algorithm
  * my favorite implementation is written in vnoj/paths-old.cpp
+ * the one in algorithms/data-structure/hld/hld.cpp is also worth consideration
  * */
 
 #include <bits/stdc++.h>
