@@ -28,10 +28,10 @@ sample problem:
 #include <iostream>
 #include <vector>
 #include <string>
-#include <cstdio>
 using namespace std;
 
 // https://vnoi.info/wiki/algo/data-structures/heavy-light-decomposition.md
+// applications: vnoj/qtree3.cpp
 
 #define all(c) c.begin(), c.end()
 #define ll long long
