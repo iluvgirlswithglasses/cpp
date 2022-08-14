@@ -250,7 +250,7 @@ struct HLD {
 		// index[b] > index[a]
 		int mx = -I;
 		while (true) {
-			if (chain[a] == chain[b]) {
+			if (chain[b] == chain[a]) {
 				return max(mx, st.get(index[a]+1, index[b]+1));
 			} else {
 				int hd = head[ chain[b] ];
