@@ -1,6 +1,14 @@
 #include <iostream>
 using namespace std;
 
+/*
+https://vnoi.info/wiki/translate/codeforces/Efficient-and-easy-segment-trees.md
+
+applications:
+	vnoj/lites.cpp
+	vnoj/qtreex.cpp
+*/
+
 #define u32 unsigned int
 
 const u32 N = 1e5+7, I = 2e9+7;
