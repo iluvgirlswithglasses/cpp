@@ -178,14 +178,14 @@ struct HLD {
 		}
 
 		void negate(int l, int r) {
-			l += n; int l0 = n;
+			l += n; int l0 = l;
 			r += n; int r0 = r;
 			for (; l < r; l>>=1, r>>=1) {
 				if (l&1) assign(l++);
 				if (r&1) assign(--r);
 			}
 			push_up(l0);
-			push_up(r0);
+			push_up(r0-1);
 		}
 
 		void upd(int i, int v) {
@@ -284,14 +284,8 @@ struct HLD {
 
 	void negate(int a, int b) {
 		int c = lca.get(a, b);
-		if (c == a) {
-			linearNegate(c, b);
-		} else if (c == b) {
-			linearNegate(c, a);
-		} else {
-			linearNegate(c, a);
-			linearNegate(c, b);
-		}
+		linearNegate(c, a);
+		linearNegate(c, b);
 	}
 };
 
