@@ -51,8 +51,7 @@ int dfs(int u) {
 	if (adj[u].size() == 0) return 1;
 	int mx = 0;
 	for (int v: adj[u]) {
-		int r = dfs(v);
-		if (r > mx) mx = r;
+		mx = max(mx, dfs(v));
 	}
 	childCnt[u] = mx;
 	return mx + 1;
