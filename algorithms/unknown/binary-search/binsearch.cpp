@@ -1,38 +1,55 @@
-// given an increasing array arr
-// find the smallest number that is bigger than k
 
 #include <iostream>
 using namespace std;
 
 //
 int n, arr[(int) 1e3];
-int k;
+int a, b;
 
-//
-int search(int k) {
+// given an increasing array arr
+// find the largest number that <= k
+int f(int k) {
 	// [l:r)
-	int l = 0, r = n;
-	while (l < r - 1) {
-		int m = (l + r) >> 1;
-		if (arr[m] >= k) {
-			r = m;
-		} else {
+	int l = 0, r = n+1;
+	while (l < r) {
+		int m = (l + r + 1) >> 1;	// to right
+		if (arr[m] <= k)
 			l = m;
-		}
+		else
+			r = m-1;
 	}
-	// change this into arr[l+1] to find the biggest number that is smaller than k
 	return arr[l];
+}
+
+// given an increasing array arr
+// find the smallest number that >= k
+int g(int k) {
+	// (l:r]
+	int l = 0, r = n+1;
+	while (l < r) {
+		int m = (l + r) >> 1;		// to left
+		if (arr[m] >= k)
+			r = m;
+		else
+			l = m+1;
+	}
+	return arr[r];
 }
 
 
 int main() {
 	// getinp
-	cin >> n >> k;
-	for (int i = 0; i < n; i++) arr[i] = i*4 + 1;
-	arr[n] = (int) 1e3;
+	cin >> n;
+	for (int i = 1; i <= n; i++) {
+		arr[i] = i*4 + 1;
+		cout << arr[i] << " ";
+	}
+	cout << "\n";
+	cin >> a >> b;
+	arr[0] = (int) -1e3;
+	arr[n+1] = (int) 1e3;
 	//
-	cout << search(k) << endl;
-	// returns
-	system("pause");
+	cout << f(a) << "\n";
+	cout << g(b) << "\n";
 	return 0;
 }
