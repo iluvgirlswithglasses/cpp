@@ -2,7 +2,7 @@
 /*
 author: 	iluvgirlswithglasses 
 github: 	https://github.com/iluvgirlswithglasses 
-created:	Tue Aug 16 13:55:04 2022
+created:	Sat Aug 20 15:16:23 2022
 tab-width:	4 spaces
 
  /\_/\
@@ -14,32 +14,53 @@ BTW I use Arch
 */
 
 #include <iostream>
-#include <set>
-#include <algorithm>
+#include <vector>
 using namespace std;
 
 #define all(c) c.begin(), c.end()
 #define ll long long
-#define pi pair<int, int>
-#define st first
-#define nd second
-#define mk make_pair
 
 const int N = 1e6+7;
-int n, x, y, a[N], le, ri;
-ll p[N];
-bool hasPositive;
+const ll  I = 1e15+7;
+/**
+ * if a[i] < x 
+ * --> divide a[] into a[:i] and a[i+1:]
+ *     those dividers are stored in d[]
+ * */
+int n, x, y, le, ri, a[N], d[N], dcnt;
+ll  res = -I;
 
-bool check(ll m) {
-	set<pi> mem;	// {p[i], i}
-	for (int i = 1; i <= n; i++) {
-		if (a[i] < x || y < a[i]) {
-			mem.clear();
-		} else {
-			
-		}
+void kadane(int l, int r) {
+	bool flag = false;
+	ll   s = 0;
+	for (int i = l, j = l; i < r; i++) {
+		s += a[i];
+		if (a[i] <= y) 
+			flag = true;
+		if (flag && s > res) 
+			res = s, le = j, ri = i;
+		if (s < 0) 
+			s = 0, flag = false, j = i+1;
 	}
-	return false;
+}
+
+void reverse_kadane(int l, int r) {
+	bool flag = false;
+	ll   s = 0;
+	for (int i = r-1, j = i; i >= l; i--) {
+		s += a[i];
+		if (a[i] <= y) 
+			flag = true;
+		if (flag && s > res) 
+			res = s, le = i, ri = j;
+		if (s < 0) 
+			s = 0, flag = false, j = i-1;
+	}
+}
+
+void calc(int l, int r) {
+	kadane(l, r);
+	reverse_kadane(l, r);
 }
 
 int main() {
@@ -47,30 +68,11 @@ int main() {
 	cin >> n >> x >> y;
 	for (int i = 1; i <= n; i++) {
 		cin >> a[i];
-		if (a[i] > 0) hasPositive = true;
+		if (a[i] < x) d[++dcnt] = i;
 	}
-	if (hasPositive) {
-		//
-		for (int i = 1; i <= n; i++)
-			p[i] = a[i] + p[i-1];
-		// [l:r)
-		ll l = -1e9-7, r = 1e15+7;
-		while (l < r) {
-			ll m = (l + r + 1) >> 1;
-			if (check(m))
-				l = m;
-			else
-				r = m-1;
-		}
-		cout << l << "\n" << le << " " << ri << "\n";
-	} else {
-		// all negative
-		ll mx = -1e9-7;
-		int pos = 0;
-		for (int i = 1; i <= n; i++)
-			if (x <= a[i] && a[i] <= y && a[i] > mx) 
-				mx = a[i], pos = i;
-		cout << mx << "\n" << pos << " " << pos << "\n";
-	}
+	d[++dcnt] = n+1;
+	for (int i = 0; i < dcnt; i++)
+		calc(d[i]+1, d[i+1]);	// [l:r)
+	cout << res << "\n" << le << " " << ri << "\n";
 	return 0;
 }
