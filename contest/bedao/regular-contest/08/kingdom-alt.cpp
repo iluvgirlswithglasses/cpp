@@ -13,6 +13,8 @@ I sexually identify myself as an Attack Helicopter
 BTW I use Arch
 */
 
+// if the problem only asks to print one vertice only
+
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -45,6 +47,7 @@ bool dfs(int u, int p, bool cut) {
 		if (c[i] == c[u]) {
 			if (!dfs(i, u, false)) return false;
 		} else {
+			// other branches are stored in `s[]`
 			s.push_back(i);
 		}
 	}
@@ -64,7 +67,7 @@ bool dfs(int u, int p, bool cut) {
 	}
 	// visit the branches with different colors
 	for (int i: s) {
-		if (!dfs(i, u, false)) return false;
+		if (!dfs(i, u, cut_next)) return false;
 	}
 	// dfs through all vertices with the given condition --> return true
 	return true;
@@ -78,7 +81,7 @@ int main() {
 		adj[u].push_back(v);
 		adj[v].push_back(u);
 	}
-	for (int i = 0; i < n; i++)
+	for (int i = 1; i <= n; i++)
 		cin >> c[i];
 	//
 	if (dfs(1, 0, false)) {
