@@ -17,6 +17,7 @@ BTW I use Arch
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 #define all(c) c.begin(), c.end()
@@ -30,14 +31,18 @@ int n, c[N];
 vector<int> adj[N];
 
 bool flag = false;	// flag == true --> a vertice has been cut
-int res = 0;
+vector<int> res;
 
 bool dfs(int u, int p, bool cut) {
 	// if this vertice was cut & doesn't care about the world anymore
 	if (cut) {
+		int cnt = 0;
 		for (int i: adj[u]) if (i != p) {
 			if (!dfs(i, u, false)) return false;
+			if (c[i] != c[u]) cnt++;
 		}
+		// if nothing changes regardless of this was cut, or the parent was cut
+		if (cnt == 0) res.push_back(p);
 		return true;
 	}
 	// branches that have different colors
@@ -60,10 +65,10 @@ bool dfs(int u, int p, bool cut) {
 		flag = true;
 		// if s.size() == 1 --> cut the first vertice of the other branch
 		if (s.size() == 1) 
-			res = s[0], cut_next = true;
+			cut_next = true, res.push_back(s[0]);
 		// if s.size() >  1 --> must cut this vertice
 		else if (s.size() > 1)
-			res = u, cut_next = false;
+			cut_next = false, res.push_back(u);
 	}
 	// visit the branches with different colors
 	for (int i: s) {
@@ -85,7 +90,9 @@ int main() {
 		cin >> c[i];
 	//
 	if (dfs(1, 0, false)) {
-		cout << "YES\n" << res << "\n";
+		cout << "YES\n";
+		sort(all(res));
+		for (int i: res) cout << i << "\n";
 	} else {
 		cout << "NO\n";
 	}
