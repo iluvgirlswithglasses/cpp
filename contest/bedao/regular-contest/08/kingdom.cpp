@@ -33,6 +33,17 @@ vector<int> adj[N];
 bool flag = false;	// flag == true --> a vertice has been cut
 vector<int> res;
 
+bool sameColor() {
+	// tricky, heh?
+	int x = c[1];
+	for (int i = 2; i <= n; i++)
+		if (c[i] != x) return false;
+	// everything is the same, you can cut everything you want
+	for (int i = 1; i <= n; i++)
+		res.push_back(i);
+	return true;
+}
+
 bool dfs(int u, int p, bool cut) {
 	// if this vertice was cut & doesn't care about the world anymore
 	if (cut) {
@@ -89,7 +100,7 @@ int main() {
 	for (int i = 1; i <= n; i++)
 		cin >> c[i];
 	//
-	if (dfs(1, 0, false)) {
+	if (sameColor() || dfs(1, 0, false)) {
 		cout << "YES\n";
 		sort(all(res));
 		for (int i: res) cout << i << "\n";
