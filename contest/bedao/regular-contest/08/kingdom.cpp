@@ -39,8 +39,6 @@ bool sameColor() {
 	for (int i = 2; i <= n; i++)
 		if (c[i] != x) return false;
 	// everything is the same, you can cut everything you want
-	for (int i = 1; i <= n; i++)
-		res.push_back(i);
 	return true;
 }
 
@@ -100,7 +98,11 @@ int main() {
 	for (int i = 1; i <= n; i++)
 		cin >> c[i];
 	//
-	if (sameColor() || dfs(1, 0, false)) {
+	if (sameColor()) {
+		cout << "YES\n";
+		for (int i = 1; i <= n; i++)
+			cout << i << "\n";
+	} else if (dfs(1, 0, false)) {
 		cout << "YES\n";
 		sort(all(res));
 		for (int i: res) cout << i << "\n";
