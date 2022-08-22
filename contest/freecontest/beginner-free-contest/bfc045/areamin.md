@@ -18,20 +18,20 @@ Gọi:
 - $y$: bán kính hình tròn  
 
 Ta có:  
-$n = 4ax + 2b\pi y \iff y = \frac{n - 4ax}{2b\pi}$  
+$n = 4ax + 2b\pi y \iff y = \dfrac{n - 4ax}{2b\pi}$  
 
 Ta lại có:  
 $S = ax^2 + b\pi y^2$  
-$= ax^2 + b\pi (n - 4ax)^2 \frac{1}{4b^2\pi^2}$  
-$= ax^2 + \frac{1}{4b\pi}(n^2 + 16a^2x^2 - 8nax)$  
-$= (a + \frac{4}{b\pi})x^2 - \frac{2}{b\pi}nax + C$  
+$= ax^2 + b\pi (n - 4ax)^2 \dfrac{1}{4b^2\pi^2}$  
+$= ax^2 + \dfrac{1}{4b\pi}(n^2 + 16a^2x^2 - 8nax)$  
+$= (a + \dfrac{4}{b\pi})x^2 - \dfrac{2}{b\pi}nax + C$  
 
-Phương trình bậc 2 dạng $y = ax^2 + bx + c$ có đạo hàm $y' = ax + b$ đạt cực trị tại $x = -\frac{b}{a}$  
+Phương trình bậc 2 dạng $y = ax^2 + bx + c$ có đạo hàm $y' = ax + b$ đạt cực trị tại $x = -\dfrac{b}{a}$  
 
-$\implies S$ đạt cực tiểu tại: $x = \frac{\frac{2}{b\pi}na}{2a + \frac{8}{b\pi}a^2}$  
+$\implies S$ đạt cực tiểu tại: $x = \dfrac{\dfrac{2}{b\pi}na}{2a + \dfrac{8}{b\pi}a^2}$  
 
-Nhân $\frac{b\pi}{2a}$ cho tử và mẫu  
+Nhân $\dfrac{b\pi}{2a}$ cho tử và mẫu  
 
-$\implies x = \frac{n}{b\pi + 4a}$  
+$\implies x = \dfrac{n}{b\pi + 4a}$  
 
 Suy ra đáp án bài toán là $4x$
