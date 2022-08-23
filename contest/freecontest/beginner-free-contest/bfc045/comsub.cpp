@@ -31,7 +31,7 @@ ll calc() {
 		if (a[i] == b[j])
 			dp[i][j] = ( dp[i][j-1] + dp[i-1][j] + 1 ) % R;
 		else
-			dp[i][j] = ( dp[i][j-1] + dp[i-1][j] - dp[i-1][j-1] + R) % R;
+			dp[i][j] = ( dp[i][j-1] + dp[i-1][j] - dp[i-1][j-1] + R ) % R;
 	}
 	return (dp[n][m] + 1) % R;
 	//                 ^ `+ 1`: adds the case of empty subsequence
