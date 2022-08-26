@@ -91,8 +91,8 @@ struct LCA {
 
 	void dfs(int u, int p, int d) {
 		first[u] = euler.size();
+		depth[u] = d;
 		euler.push_back(u);
-		depth.push_back(d);
 		for (Node i: adj[u]) if (i.v != p) {
 			dfs(i.v, u, d+1);
 			euler.push_back(u);
