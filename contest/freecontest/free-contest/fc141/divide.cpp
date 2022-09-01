@@ -20,25 +20,26 @@ using namespace std;
 
 #define all(c) c.begin(), c.end()
 #define ll long long
-#define vi vector<int, int>
-#define pi vector<vi, vi>
+#define vi vector<ll>
 
 const int N = 1e5+7;
-int n, p[N];
+int n;
+ll  p[N];
 
-void divide(vi &f, vi &g, int l, int r) {
-	int *x = lower_bound(p+l+1, p+r+1, p[l] + (p[r] - p[l])/2);
-	// f = {index, sum left, sum right}
-	f = {x - p, *x - p[l], p[r] - *x}, g = f;
-	if (--x - p >= l)
-		g = {x - p, *x - p[l], p[r] - *x};
+void divide(vi &f, int l, int r) {
+	ll *x = lower_bound(p+l+1, p+r+1, p[l] + (p[r] - p[l])/2);
+	// f = {sum left, sum right}
+	f = {*x - p[l], p[r] - *x};
+	if (--x - p >= l) {
+		ll a = *x - p[l], b = p[r] - *x;
+		if (
+			abs(a - b) < *max_element(all(f)) - *min_element(all(f))
+		) f = {a, b};
+	}
 }
 
-vi join(vi &f, vi &g) {
-	vi v;
-	for (int i = 1; i < 3; i++)
-		v.push_back(f[i]), v.push_back(g[i]);
-	return v;
+void join(vi &f, vi &g) {
+	for (ll i: g) f.push_back(i);
 }
 
 int main() {
@@ -48,10 +49,14 @@ int main() {
 		cin >> p[i];
 		p[i] += p[i-1];
 	}
-	int res = 1e9+7;
-	vi fhalf, ghalf;
-	divide(fhalf, ghalf, 0, n);
-	// devide sub arrays here
+	ll res = 1e15+7;
+	vi f, g;
+	for (int i = 0; i <= n; i++) {
+		divide(f, 0, i);
+		divide(g, i, n);
+		join(f, g);
+		res = min(res, *max_element(all(f)) - *min_element(all(f)));
+	}
 	cout << res << "\n";
 	return 0;
 }
