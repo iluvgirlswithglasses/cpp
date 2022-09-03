@@ -2,7 +2,7 @@
 /*
 author: 	iluvgirlswithglasses 
 github: 	https://github.com/iluvgirlswithglasses 
-created:	Sat Sep  3 19:39:42 2022
+created:	Sat Sep  3 23:19:53 2022
 tab-width:	4 spaces
 
  /\_/\
@@ -17,15 +17,18 @@ BTW I use Arch
 #include <map>
 using namespace std;
 
-// this is not yet completed
-
 #define ll long long
 #define pi pair<const ll, int>
 #define st first
 #define nd second
 const int N = 1e5+7, A = 36;
-int n, s[N], cnt[A][N];		// cnt[c][i]: number of `c` in range [1:i]
+int n, s[N];
 
+// read './beautystr-brute.cpp' to understand what is going on
+
+// x[i]: xor of s[1:i]
+// --> x[r] ^ x[l-1] == xor of s[l:r]
+ll x[N];
 map<ll, int> m;
 
 void inp() {
@@ -40,25 +43,17 @@ void inp() {
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	inp();
-	for (int i = 1; i <= n; i++) {
-		for (int c = 0; c < A; c++) cnt[c][i] = cnt[c][i-1];
-		cnt[s[i]][i]++;
-	}
 	//
 	ll res = 0;
+	m[0] = 1;
 	for (int r = 1; r <= n; r++) {
 		int c = s[r];
-		// m[i].st[c] == 0 if number of `c` in [l:r] is even
-		// m[i].nd == the number of `l` which `s[l:r]` has the mask m[i].st
-		map<ll, int> t;
-		for (pi &p: m)
-			if (p.nd) t[p.st ^ (1ll<<c)] = p.nd;
-		t[1ll<<c]++;
+		x[r] = x[r-1] ^ (1ll<<c);
 		//
-		res += t[0];
+		res += m[x[r]];	// x[r] ^ x[r] == 0
 		for (int i = 0; i < A; i++)
-			res += t[1ll<<i];
-		m = t;
+			res += m[x[r]^(1ll<<i)];	// find `x[l]` which `x[r] ^ x[l] == (1ll<<i)`
+		m[x[r]]++;
 	}
 	cout << res << "\n";
 	return 0;
