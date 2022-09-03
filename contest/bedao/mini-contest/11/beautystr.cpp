@@ -18,9 +18,6 @@ BTW I use Arch
 using namespace std;
 
 #define ll long long
-#define pi pair<const ll, int>
-#define st first
-#define nd second
 const int N = 1e5+7, A = 36;
 int n, s[N];
 
