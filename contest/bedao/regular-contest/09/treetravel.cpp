@@ -100,6 +100,11 @@ struct HLD {
 	struct SegTree {
 		int f[N<<1];
 
+		void add(int &x, int y) {
+			x += y;
+			if (x >= R) x -= R;
+		}
+
 		void init() {
 			for (int i = 0; i < n; i++)
 				f[i+n] = 1;
@@ -107,25 +112,15 @@ struct HLD {
 
 		void upd(int l, int r, int v) {
 			for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
-				if (l&1) {
-					f[l] += v;
-					if (f[l] >= R) f[l] -= R;
-					l++;
-				}
-				if (r&1) {
-					--r;
-					f[r] += v;
-					if (f[r] >= R) f[r] -= R;
-				}
+				if (l&1) add(f[l++], v);
+				if (r&1) add(f[--r], v);
 			}
 		}
 
 		int get(int i) {
 			int res = 0;
-			for (i += n; i > 0; i >>= 1) {
-				res += f[i];
-				if (res >= R) res -= R;
-			}
+			for (i += n; i > 0; i >>= 1) 
+				add(res, f[i]);
 			return res;
 		}
 	} segtree;
@@ -194,8 +189,7 @@ int main() {
 	hld.init(root);
 	//
 	for (int i = 1; i <= n; i++) {
-		int u;
-		cin >> u;
+		int u; cin >> u;
 		if (u != root)
 			hld.linear_update(parent[u], root, hld.query(u));
 	}
