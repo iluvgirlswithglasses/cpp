@@ -187,15 +187,17 @@ int main() {
 	lca.init(root);
 	hld.segtree.init();
 	hld.init(root);
+	vector<int> res(n+1, 1);
 	//
 	for (int i = 1; i <= n; i++) {
 		int u; cin >> u;
 		if (u != root)
 			hld.linear_update(parent[u], root, hld.query(u));
+		res[u] = hld.query(u);
 	}
 	//
 	for (int i = 1; i <= n; i++) {
-		cout << hld.query(i) << " ";
+		cout << res[i] << " ";
 	}
 	cout << "\n";
 	return 0;

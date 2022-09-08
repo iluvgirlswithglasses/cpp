@@ -18,7 +18,7 @@ BTW I use Arch
 using namespace std;
 
 const int R = 1e9+7, N = 1e5+7;
-int n, parent[N], val[N];
+int n, parent[N], val[N], res[N];
 // root = 0
 
 void add(int &x, int y) {
@@ -38,15 +38,16 @@ int main() {
 	for (int i = 1; i <= n; i++) {
 		int p; cin >> p;
 		parent[i] = p;
-		val[i] = 1;
+		val[i] = res[i] = 1;
 	}
 	for (int i = 1; i <= n; i++) {
 		int u; cin >> u;
 		recurse(parent[u], val[u]);
+		res[u] = val[u];
 	}
 	//
 	for (int i = 1; i <= n; i++) {
-		cout << val[i] << " ";
+		cout << res[i] << " ";
 	}
 	cout << "\n";
 	return 0;
