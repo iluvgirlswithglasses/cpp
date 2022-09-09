@@ -79,11 +79,11 @@ void assign(int i, int a, int b) {
 	sigma value will be calculated locally
 	while `B - L*A` will be calculated before it is passed to assign()
 	*/
-	add(f[i], rmul(sigma(1ll*lef[i], 1ll*(lef[i]+cnt[i])), a));
+	// add(f[i], rmul(a, sigma(lef[i], lef[i]+cnt[i])));
 	add(f[i], b);
 	if (i < n) {
-		add(u[i<<1], a); add(u[i<<1|1], a);
-		add(v[i<<1], b); add(v[i<<1|1], b);
+		// add(u[i], a);
+		add(v[i], b);
 	}
 }
 
@@ -98,13 +98,12 @@ void pull(int i0) {
 void push(int i) {
 	for (i>>=1; i > 0; i>>=1) {
 		f[i] = radd(f[i<<1], f[i<<1|1]);
-		add(f[i], rmul(u[i], sigma(1ll*lef[i], 1ll*(lef[i]+cnt[i]))));
+		// add(f[i], rmul(u[i], sigma(lef[i], lef[i]+cnt[i])));
 		add(f[i], v[i]);
 	}
 }
 
 void update(int l, int r, int a, int b) {
-	b = bla(b, l+1, a);
 	int l0 = l+=n, r0 = r+=n;
 	for (; l < r; l>>=1, r>>=1) {
 		if (l&1) assign(l++, a, b);
@@ -117,21 +116,21 @@ int query(int l, int r) {
 	pull(l+=n); pull((r+=n)-1);
 	int res = 0;
 	for (; l < r; l>>=1, r>>=1) {
-		if (l&1) res = (res + f[l++]) % R;
-		if (r&1) res = (res + f[--r]) % R;
+		if (l&1) add(res, f[l++]);
+		if (r&1) add(res, f[--r]);
 	}
 	return res;
 }
 
 int main() {
-	ios_base::sync_with_stdio(false); cin.tie(0);
+	// ios_base::sync_with_stdio(false); cin.tie(0);
 	cin >> n >> q;
 	init();
 	while (q--) {
 		int t, l, r, a, b; cin >> t;
 		if (t == 1) {
 			cin >> l >> r >> a >> b;
-			update(l-1, r, a, b);
+			update(l-1, r, a, bla(b, l, a));
 		} else {
 			cin >> l >> r;
 			cout << query(l-1, r) << "\n";
