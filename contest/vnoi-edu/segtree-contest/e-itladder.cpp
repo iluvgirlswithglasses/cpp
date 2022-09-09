@@ -79,10 +79,10 @@ void assign(int i, int a, int b) {
 	sigma value will be calculated locally
 	while `B - L*A` will be calculated before it is passed to assign()
 	*/
-	// add(f[i], rmul(a, sigma(lef[i], lef[i]+cnt[i])));
-	add(f[i], b);
+	add(f[i], rmul(a, sigma(lef[i], lef[i]+cnt[i])));
+	add(f[i], rmul(b, cnt[i]));
 	if (i < n) {
-		// add(u[i], a);
+		add(u[i], a);
 		add(v[i], b);
 	}
 }
@@ -98,8 +98,8 @@ void pull(int i0) {
 void push(int i) {
 	for (i>>=1; i > 0; i>>=1) {
 		f[i] = radd(f[i<<1], f[i<<1|1]);
-		// add(f[i], rmul(u[i], sigma(lef[i], lef[i]+cnt[i])));
-		add(f[i], v[i]);
+		add(f[i], rmul(u[i], sigma(lef[i], lef[i]+cnt[i])));
+		add(f[i], rmul(v[i], cnt[i]));
 	}
 }
 
@@ -123,7 +123,7 @@ int query(int l, int r) {
 }
 
 int main() {
-	// ios_base::sync_with_stdio(false); cin.tie(0);
+	ios_base::sync_with_stdio(false); cin.tie(0);
 	cin >> n >> q;
 	init();
 	while (q--) {
