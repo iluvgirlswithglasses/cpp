@@ -21,13 +21,15 @@ using namespace std;
 // tiêu đề & cách dẫn văn của bài tập này là 1 reference đến Kither
 // chúc các bạn giải bài vui vẻ
 
+// chỉ cần nhân 10 các số lên là sẽ được làm việc với số nguyên
+
 #define ld long double
 const int N = 1e5+7;
 int n;
-ld k, a[N], p[N];
+int k, a[N], p[N];
 
 // kiểm tra xem đáp án `t` có khả thi hay không
-bool check(ld t) {
+bool check(int t) {
 	/*
 	trong t giây, người lính thứ nhất sẽ chạy đến vị trí `t`
 
@@ -48,22 +50,30 @@ bool check(ld t) {
 	return true;
 }
 
+void inp() {
+	ld _k, _x;
+	cin >> _k >> n;
+	//
+	k = _k*10;
+	for (int i = 0; i < n; i++) {
+		cin >> _x;
+		a[i] = _x*10;
+	}
+}
+
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
-	cin >> k >> n;
-	for (int i = 0; i < n; i++)
-		cin >> a[i];
+	inp();
 	//
-	ld l = 0, r = 1e6;
-	int q = 1000;
-	while (q--) {
-		// [l:r]
-		ld m = (l+r)/2.0;
+	int l = 0, r = 1e7;
+	while (l < r) {
+		int m = (l + r) >> 1;
 		if (check(m)) 
 			r = m;
 		else
-			l = m;
+			l = m+1;
 	}
-	cout << setprecision(1) << fixed << r << "\n";
+	//
+	cout << setprecision(1) << fixed << (ld) r/10.0 << "\n";
 	return 0;
 }
