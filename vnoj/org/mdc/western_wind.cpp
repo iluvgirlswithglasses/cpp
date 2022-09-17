@@ -24,7 +24,7 @@ using namespace std;
 // chỉ cần nhân 10 các số lên là sẽ được làm việc với số nguyên
 
 #define ld long double
-const int N = 1e5+7;
+const int N = 1e6+7;
 int n;
 int k, a[N], p[N];
 
