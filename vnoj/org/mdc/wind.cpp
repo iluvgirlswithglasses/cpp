@@ -51,6 +51,8 @@ int main() {
 		// để khỏi phải xử lý phép chia khi chia lấy dư thì ta cho k = h/2
 		radd(k, a>>1);
 	}
+	// các cạnh của vòng có thể chia thành `k` cặp,
+	// mỗi cặp có tổng bằng `(s-k)*2`
 	ll res = (s-k+R) * k << 1;
 	cout << (res % R) << "\n";
 	return 0;
