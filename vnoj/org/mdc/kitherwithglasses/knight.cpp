@@ -36,7 +36,7 @@ int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	cin >> m >> n >> q;
 	for (int d = m+n; d >= 4; d--) {
-		for (int c = min(d, n), r = d-c; legit(r, c); c--, r = d-c) {
+		for (int c = min(d-1, n), r = d-c; legit(r, c); c--, r++) {
 			for (int t = 0; t < 4; t++)
 				assign(r + MOV_R[t], c + MOV_C[t], dp[r][c]^1);
 		}
