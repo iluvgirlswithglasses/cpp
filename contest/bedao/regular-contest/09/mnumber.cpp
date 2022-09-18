@@ -20,7 +20,7 @@ using namespace std;
 ll c, a, b;
 
 bool calc() {
-	// c == a^2 * b^2 --> c == (a+b)(a-b)
+	// c == a^2 - b^2 --> c == (a+b)(a-b)
 	// call x = (a-b) --> c/x == a+b
 	for (ll x = 1; x * x < c; x++) if (c % x == 0) {
 		/*
