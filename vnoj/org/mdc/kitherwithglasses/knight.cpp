@@ -17,7 +17,7 @@ BTW I use Arch
 #include <cstdio>
 using namespace std;
 
-const int N = 407;
+const int N = 2007;
 const int MOV_R[4] = {+1, -1, -2, -2};
 const int MOV_C[4] = {-2, -2, -1, +1};
 
