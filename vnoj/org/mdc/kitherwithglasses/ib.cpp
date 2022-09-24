@@ -89,6 +89,7 @@ int bfs(pi &src, pi &des) {
 	memset(visited, 0, sizeof(visited));
 	deque<pi>  q = {src};
 	deque<int> d = {0};
+	visited[src.st][src.nd] = true;
 	//
 	while (q.size()) {
 		pi  cr    = q.front(); q.pop_front();
@@ -100,6 +101,7 @@ int bfs(pi &src, pi &des) {
 			//
 			q.push_back({y, x});
 			d.push_back(depth + 1);
+			visited[y][x] = true;
 		}
 	}
 	//
