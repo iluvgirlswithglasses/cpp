@@ -28,18 +28,24 @@ int n, m;
 vector<pi> adj[N];	// adj[i]: {adj vertice, edge id}
 int color[N];
 
-bool __has_circle(int u, vector<bool> &visited) {
-	visited[u] = true;
-	for (pi &p: adj[u]) {
-		if (visited[p.st] || __has_circle(p.st, visited)) return true;
+bool __has_circle(int u, vector<bool> &visited, vector<bool> &internal) {
+	if (!visited[u]) {
+		visited[u] = internal[u] = true;
+		for (pi &p: adj[u])
+			if (!visited[p.st] && __has_circle(p.st, visited, internal)) 
+				return true;
+			else if (internal[p.st]) 
+				return true;
 	}
+	internal[u] = false;
 	return false;
 }
 
 bool has_circle() {
 	vector<bool> visited(n, false);
+	vector<bool> internal(n, false);
 	for (int i = 0; i < n; i++) if (!visited[i]) {
-		if (__has_circle(0, visited)) return true;
+		if (__has_circle(i, visited, internal)) return true;
 	}
 	return false;
 }
@@ -71,14 +77,14 @@ int main() {
 		cout << "0\n";
 	} else if (!has_circle()) {
 		cout << "1\n";
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < m; i++)
 			cout << "1 ";
 		cout << "\n";
 	} else {
 		dfs();
 		cout << "2\n";
-		for (int i = 0; i < n; i++)
-			cout << color[i] << " ";
+		for (int i = 0; i < m; i++)
+			cout << color[i]+1 << " ";
 		cout << "\n";
 	}
 	return 0;
