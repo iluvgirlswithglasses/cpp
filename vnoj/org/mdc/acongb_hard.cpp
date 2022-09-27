@@ -18,6 +18,13 @@ BTW I use Arch
 #include <vector>
 using namespace std;
 
+/*
+this file is deprecated
+
+a better version:
+	trick/bignum/bignum.cpp
+*/
+
 // no need for python
 // imma create my own bignum lib soon
 
