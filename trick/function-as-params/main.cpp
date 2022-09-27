@@ -22,7 +22,6 @@ int main() {
 	// perform
 	call_func(func);
 	call_both_func(func, para_func);
-	// return
-	getchar();
+	call_func([](){cout << "lambda\n";});
 	return 0;
 }
