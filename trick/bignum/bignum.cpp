@@ -61,6 +61,40 @@ struct BigNum {
 	}
 
 	/**
+	 * @ comparators
+	 * */
+	// true --> |this| == |x|
+	bool abs_equal(const BigNum &x) const {
+		if (d.size() != x.d.size()) return false;
+		for (int i = d.size() - 1; i >= 0; i--)
+			if (d[i] != x.d[i]) return false;
+		return true;
+	}
+
+	// true --> this = x
+	bool equal(const BigNum &x) const {
+		return negative == x.negative && abs_equal(x);
+	}
+
+	// true --> |this| < |x|
+	bool abs_less(const BigNum &x) const {
+		if (d.size() == x.d.size()) {
+			for (int i = d.size() - 1; i >= 0; i--)
+				if (d[i] != x.d[i]) return d[i] < x.d[i];
+		}
+		return d.size() < x.d.size();
+	}
+
+	// true --> this < x
+	bool less(const BigNum &x) const {
+		if (negative != x.negative)
+			return negative;
+		if (!negative)
+			return abs_less(x);
+		return !abs_less(x);
+	}
+
+	/**
 	 * @ private operators
 	 * */
 	// only adds directly (skips negative/positive) to `vector<int> d`
@@ -90,15 +124,6 @@ struct BigNum {
 	/**
 	 * @ public operators
 	 * */
-	// if true --> |this| < |x|
-	bool abs_less(const BigNum &x) const {
-		if (d.size() == x.d.size()) {
-			for (int i = d.size() - 1; i >= 0; i--)
-				if (d[i] != x.d[i]) return d[i] < x.d[i];
-		}
-		return d.size() < x.d.size();
-	}
-
 	void add(const BigNum &x) {
 		if (negative == x.negative) {
 			__add(x);
@@ -130,7 +155,6 @@ int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	string a, b; cin >> a >> b;
 	BigNum x(a), y(b);
-	x.sub(y);
-	x.print();
+	cout << x.less(y) << "\n";
 	return 0;
 }
