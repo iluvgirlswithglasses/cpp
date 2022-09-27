@@ -21,7 +21,7 @@ using namespace std;
 /*
 this file is deprecated
 
-a better version:
+the better version:
 	trick/bignum/bignum.cpp
 */
 
