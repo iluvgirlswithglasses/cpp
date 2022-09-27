@@ -76,13 +76,23 @@ struct BigNum {
 		return negative == x.negative && abs_equal(x);
 	}
 
-	// true --> |this| < |x|
-	bool abs_less(const BigNum &x) const {
+	// general comparator for |this| != |x|
+	bool abs_compare(const BigNum &x, bool (*f)(int, int)) const {
 		if (d.size() == x.d.size()) {
 			for (int i = d.size() - 1; i >= 0; i--)
-				if (d[i] != x.d[i]) return d[i] < x.d[i];
+				if (d[i] != x.d[i]) return (*f)(d[i], x.d[i]);
 		}
-		return d.size() < x.d.size();
+		return (*f)(d.size(), x.d.size());
+	}
+
+	// true --> |this| < |x|
+	bool abs_less(const BigNum &x) const {
+		return abs_compare(x, [](int i, int j){return i < j;});
+	}
+
+	// true --> |this| > |x|
+	bool abs_greater(const BigNum &x) const {
+		return abs_compare(x, [](int i, int j){return i > j;});
 	}
 
 	// true --> this < x
@@ -91,7 +101,26 @@ struct BigNum {
 			return negative;
 		if (!negative)
 			return abs_less(x);
-		return !abs_less(x);
+		return abs_greater(x);
+	}
+
+	// true --> this > x
+	bool greater(const BigNum &x) const {
+		if (negative != x.negative)
+			return !negative;
+		if (!negative)
+			return abs_greater(x);
+		return abs_less(x);
+	}
+
+	// true --> this >= x
+	bool lessequal(const BigNum &x) const {
+		return !greater(x);
+	}
+
+	// true --> this <= x
+	bool greaterequal(const BigNum &x) const {
+		return !less(x);
 	}
 
 	/**
