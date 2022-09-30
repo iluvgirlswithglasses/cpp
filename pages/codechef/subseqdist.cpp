@@ -22,7 +22,7 @@ using namespace std;
 /*
 mấu chốt thứ nhất:
 	trong lúc biến đổi phần tử xuất hiện nhiều lần nhất,
-	chúng ta có thể rảnh tay thay đổi các phần tử còn lại
+	chúng ta có thể rảnh tay cùng lúc thay đổi các phần tử còn lại
 
 	do đó, bài toán suy biến thành:
 		cho một dãy `m` số giống nhau, 
