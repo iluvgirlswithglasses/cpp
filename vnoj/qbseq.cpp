@@ -17,12 +17,6 @@ BTW I use Arch
 #include <cstring>
 using namespace std;
 
-#define all(c) c.begin(), c.end()
-#define ll long long
-#define pi pair<int, int>
-#define st first
-#define nd second
-
 const int N = 1007, K = 52;
 // dp[x][i]: độ dài của dãy dài nhất chia `k` dư `x` khi xét tới `a[i]`
 int n, k, a[N], dp[K][N];
