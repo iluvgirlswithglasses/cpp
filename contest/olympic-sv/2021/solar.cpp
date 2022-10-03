@@ -87,6 +87,14 @@ struct MinSegtree {
 	}
 
 	CmpObj get(int l, int r) {
+		/*
+		the pb is here:
+			I compared updated positions of every accessed nodes in the following loop
+			but I did not compare the updated positions of those unvisited nodes
+
+			That's why I still got WA
+			I'll solve this later
+		*/
 		CmpObj res = {I, I, I};
 		for (l+=n, r+=n; l < r; l>>=1, r>>=1) {
 			if (l&1) res = min(res, mkobj(l++));
