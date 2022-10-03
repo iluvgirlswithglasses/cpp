@@ -86,13 +86,13 @@ struct MinSegtree {
 		return x;
 	}
 
-	pi get(int l, int r) {
+	CmpObj get(int l, int r) {
 		CmpObj res = {I, I, I};
 		for (l+=n, r+=n; l < r; l>>=1, r>>=1) {
 			if (l&1) res = min(res, mkobj(l++));
 			if (r&1) res = min(res, mkobj(--r));
 		}
-		return {res.v, res.i};
+		return res;
 	}
 } mst;
 
@@ -116,13 +116,13 @@ int main() {
 				int s, e, p; cin >> s >> e >> p;
 				s = (s-1 - shift + n) % n;
 				e = (e-1 - shift + n) % n;
-				pi replaced;
+				MinSegtree::CmpObj replaced;
 				if (s <= e)
 					replaced = mst.get(s, e+1);
 				else
 					replaced = min(mst.get(s, n), mst.get(0, e+1));
-				mst.upd(replaced.nd, p);
-				sst.upd(replaced.nd, p);
+				mst.upd(replaced.i, p);
+				sst.upd(replaced.i, p);
 				break;
 			}
 			case 3: {
