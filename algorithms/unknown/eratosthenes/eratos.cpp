@@ -1,40 +1,38 @@
+
 #include <iostream>
-#include <fstream>
 using namespace std;
 
-const int N = 1e7+7;
-int n;
-bool er[N];	// er[i] == true --> er[i] isn't prime
+#define ll long long
+const int I = 1e7+7;
 
-bool is_prime(int i) {
-	return !er[i];
-}
+struct Eratosthenes {
 
-void eratosthenes() {
-	er[0] = true;
-	er[1] = true;
-	for (int i = 2; i <= n; i++) {
-		if (!er[i]) {
-			for (long long j = (long long) i * i; j < N; j+=i) {
-				er[j] = true;
-			}
+	int  n, cnt;
+	int  p[I];	// p[i] == the i-th prime
+	bool e[I];	// e[i] == 0 --> `i` is prime
+
+	void init(int _n) {
+		n = _n;
+		e[0] = e[1] = true;
+		for (ll i = 2; i <= n; i++) if (!e[i]) {
+			p[cnt++] = i;
+			for (ll j = i*i; j <= n; j+=i) e[j] = true;
 		}
 	}
-}
+
+	bool is_prime(int x) {
+		return !e[x];
+	}
+
+} er;
 
 int main() {
-	ofstream out("_sub\\out.txt");
-	//
-	cin >> n;
-	int cnt = 0;
-	eratosthenes();
-	for (int i = 0; i <= n; i++) {
-		if (is_prime(i)) {
-			out << i << ", ";
-			cnt++;
-		}
-	}
-	//
-	cout << cnt << "\n";
+	cin.tie(0)->sync_with_stdio(false);
+	int n; cin >> n;
+	er.init(n);
+	cout << "number of primes in [0:n]: " << er.cnt << "\n";
+	for (int i = 0; i < er.cnt; i++)
+		cout << er.p[i] << ", ";
+	cout << "\n";
 	return 0;
 }
