@@ -35,9 +35,9 @@ struct Eratos {
 	void init(int _n) {
 		n = _n;
 		e[0] = e[1] = true;
-		for (ll i = 2; i <= n; i++) if (!e[i]) {
+		for (ll i = 2; i <= n; i++) if (e[i] == 0) {
 			p[cnt++] = i;
-			for (ll j = i*i; j <= n; j+=i) e[i] = true;
+			for (ll j = i*i; j <= n; j+=i) e[j] = true;
 		}
 	}
 
@@ -98,11 +98,8 @@ int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	er.init((int) 1e7);
 	// write your test here
-	int x; cin >> x;
-	vector<ll> v = er.get_divisors(x);
-	sort(v.begin(), v.end());
-	for (int i: v)
-		cout << i << " ";
+	for (int i = 0; i < 10; i++)
+		cout << er.p[i] << " ";
 	cout << "\n";
 	return 0;
 }
