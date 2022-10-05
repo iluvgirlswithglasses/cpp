@@ -46,7 +46,7 @@ struct Eratos {
 	 * */
 	vector<ll> fact(ll x) {
 		vector<ll> res;
-		for (ll _i = 0, i = p[0]; i*i <= x; i = p[++_i]) {
+		for (ll _i = 0, i = p[0]; _i < cnt && i*i <= x; i = p[++_i]) {
 			if (x % i == 0) {
 				res.push_back(i);
 				while (x % i == 0) x /= i;
@@ -58,7 +58,7 @@ struct Eratos {
 
 	map<ll, int> fact_map(ll x) {
 		map<ll, int> res;
-		for (ll _i = 0, i = p[0]; i*i <= x; i = p[++_i]) {
+		for (ll _i = 0, i = p[0]; _i < cnt && i*i <= x; i = p[++_i]) {
 			while (x % i == 0) {
 				res[i]++;
 				x /= i;
@@ -75,7 +75,7 @@ struct Eratos {
 		int len = 1;
 		vector<ll> res = {1};
 		//
-		for (ll _i = 0, i = p[0]; i*i <= x; i = p[++_i]) if (x % i == 0) {
+		for (ll _i = 0, i = p[0]; _i < cnt && i*i <= x; i = p[++_i]) if (x % i == 0) {
 			ll t = i;
 			while (x % i == 0) {
 				for (int j = 0; j < len; j++)
