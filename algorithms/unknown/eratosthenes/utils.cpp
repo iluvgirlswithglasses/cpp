@@ -25,12 +25,14 @@ using namespace std;
 #define pi pair<const int, int>
 #define st first
 #define nd second
-const int I = 1e7+7;
 
 struct Eratos {
+
+	static const int I = 1e7+7;
+
 	int  n, cnt;
-	ll   p[I];	// p[i] == the i-th prime, 0-indexed
-	bool e[I];	// e[i] == 0 --> `i` is prime
+	ll   p[Eratos::I];	// p[i] == the i-th prime, 0-indexed
+	bool e[Eratos::I];	// e[i] == 0 --> `i` is prime
 
 	void init(int _n) {
 		n = _n;

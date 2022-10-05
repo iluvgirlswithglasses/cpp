@@ -3,13 +3,14 @@
 using namespace std;
 
 #define ll long long
-const int I = 1e7+7;
 
-struct Eratosthenes {
+struct Eratos {
+
+	static const int I = 1e7+7;
 
 	int  n, cnt;
-	int  p[I];	// p[i] == the i-th prime
-	bool e[I];	// e[i] == 0 --> `i` is prime
+	int  p[Eratos::I];	// p[i] == the i-th prime
+	bool e[Eratos::I];	// e[i] == 0 --> `i` is prime
 
 	void init(int _n) {
 		n = _n;
