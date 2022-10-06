@@ -60,6 +60,19 @@ struct BigNum {
 		printf("\n");
 	}
 
+	string to_str() {
+		string s = "";
+		if (negative)
+			s += "-";
+		if (d.back() > 0)
+			s += to_string(d.back());
+		for (int i = d.size()-2; i >= 0; i--) {
+			string t = to_string(d[i]);
+			s += string(4 - t.length(), '0') + t;
+		}
+		return s;
+	}
+
 	/**
 	 * @ comparators
 	 * */
@@ -150,6 +163,20 @@ struct BigNum {
 		fix();
 	}
 
+	// only multiplies directly to `vector<int> d`
+	void __mul(const BigNum &x) {
+		vector<int> v(d.size() + x.d.size() + 1);
+		for (int i = 0; i < d.size(); i++) {
+			for (int j = 0; j < x.d.size(); j++) {
+				v[i+j  ] += d[i] * x.d[j];
+				v[i+j+1] += v[i+j] / BASE;
+				v[i+j  ] %= BASE;
+			}
+		}
+		d = v;
+		fix();
+	}
+
 	/**
 	 * @ public operators
 	 * */
@@ -178,12 +205,20 @@ struct BigNum {
 			}
 		}
 	}
+
+	void mul(const BigNum &x) {
+		if (x.negative) negative ^= 1;
+		__mul(x);
+	}
 };
 
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	string a, b; cin >> a >> b;
 	BigNum x(a), y(b);
-	cout << x.less(y) << "\n";
+	x.mul(y);
+	x.print();
+	string s = x.to_str();
+	cout << s << "\n";
 	return 0;
 }
