@@ -1,4 +1,0 @@
-https://www.geeksforgeeks.org/number-subarrays-sum-exactly-equal-k/
-
-// cho mảng số nguyên arr và một số nguyên k
-// tìm số mảng con sao cho tổng các phần tử trong mảng đó bằng k
