@@ -28,7 +28,7 @@ string s;
 // only detect odd-length palindromes
 vector<int> __manacher(string s) {
 	int n = s.length();
-	// advoid dealing with ends of the string separately
+	// avoid dealing with ends of the string separately
 	// btw this is "regexly" correct
 	s = "^" + s + "$";
 	// `d[i]`: half the length of the palindrome that centers around `i`, including itself
