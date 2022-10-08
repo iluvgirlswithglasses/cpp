@@ -210,15 +210,29 @@ struct BigNum {
 		if (x.negative) negative ^= 1;
 		__mul(x);
 	}
+
+	// x < BASE
+	void div(int x) {
+		for (int i = (int) d.size() - 1, r = 0; i >= 0; i--, r %= x) {
+			r = r * BASE + d[i];
+			d[i] = r / x;
+		}
+		fix();
+	}
+
+	// x < BASE
+	int getmod(int x) {
+		int r = 0;
+		for (int i = (int) d.size() - 1; i >= 0; i--)
+			r = (r * BASE + d[i]) % x;
+		return r;
+	}
 };
 
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	string a, b; cin >> a >> b;
-	BigNum x(a), y(b);
-	x.mul(y);
-	x.print();
-	string s = x.to_str();
-	cout << s << "\n";
+	BigNum x(a);
+	cout << x.getmod(stoi(b)) << "\n";
 	return 0;
 }
