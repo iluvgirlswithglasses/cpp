@@ -2,7 +2,7 @@
 /*
 author: 	iluvgirlswithglasses 
 github: 	https://github.com/iluvgirlswithglasses 
-created:	Sat Oct 08 14:54:34 2022
+created:	Sat Oct 08 16:03:41 2022
 tab-width:	4 spaces
 
  /\_/\
@@ -14,31 +14,27 @@ BTW I use Arch
 */
 
 #include <iostream>
-#include <iomanip>
-#include <algorithm>
-#include <cmath>
 #include <string>
 #include <cstring>
-#include <queue>
-#include <vector>
-#include <set>
-#include <map>
 using namespace std;
 
-#define all(c) c.begin(), c.end()
-#define ll long long
-#define pi pair<int, int>
-#define st first
-#define nd second
-
-const int N = 1e6+7, I = 1e9+7, R = 1e9+7;
+const int N = 1e6+7;
 int n;
+bool mark[N];
 
 int calc(string &s) {
+	n = s.length();
 	s = "1" + s + "1";
+	memset(mark, 0, sizeof(mark[0]) * s.length());
+	//
 	int res = 0;
-	for (int l = 0, r = 2; r < s.length(); l++, r++) {
-		if (s[l] == '1' && s[l+1] == '1' && s[l+2] == '1') res++;
+	for (int i = 1; i <= n; i++) if (s[i] == '1') {
+		if (s[i-1] == '0' && mark[i-1] == 0)
+			continue;
+		if (s[i+1] == '0')
+			mark[i+1] = 1;
+		else
+			res++;
 	}
 	return res;
 }
