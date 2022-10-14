@@ -14,25 +14,12 @@ BTW I use Arch
 */
 
 #include <iostream>
-#include <iomanip>
-#include <algorithm>
-#include <cmath>
-#include <string>
-#include <cstring>
-#include <queue>
-#include <vector>
-#include <set>
 #include <map>
 using namespace std;
 
-#define all(c) c.begin(), c.end()
-#define ll long long
 #define pi pair<const int, int>
 #define st first
 #define nd second
-
-const int N = 1e6+7, I = 1e9+7, R = 1e9+7;
-int n;
 
 int __gcd(int a, int b) {
 	if (b == 0) return a;
