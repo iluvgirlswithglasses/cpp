@@ -17,7 +17,8 @@ BTW I use Arch
 #include <vector>
 using namespace std;
 
-#define pi pair<int, int>
+#define ll long long
+#define pi pair<ll, ll>
 #define st first
 #define nd second
 const int N = 1e5+7;
