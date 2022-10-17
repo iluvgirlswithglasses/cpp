@@ -53,7 +53,7 @@ int manacher(string s) {
 		t += string(".") + c;
 	// d[0] and d[-1] are anchor characters "^" and "$"
 	// d[2n+1] are escape characters, currently set to "."
-	// real characters presented in string `s`
+	// d[2n] are real characters presented in string `s`
 	vector<int> d = __manacher(t + '.');
 	return *max_element(d.begin() + 1, d.end() - 1) - 1;
 }
