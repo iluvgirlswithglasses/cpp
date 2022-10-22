@@ -29,7 +29,7 @@ ll sigma(ll l, ll r) {
 ll calc() {
 	ll res = 0;
 	if (h < w)
-		return sigma(1, h) + sigma(w-h, w);
+		return sigma(1, h) + sigma(w-h+1, w);
 	return sigma(h-w, h) + sigma(1, w);
 }
 
