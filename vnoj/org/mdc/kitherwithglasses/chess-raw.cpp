@@ -2,7 +2,7 @@
 /*
 author: 	iluvgirlswithglasses 
 github: 	https://github.com/iluvgirlswithglasses 
-created:	Sun Oct 23 08:16:48 2022
+created:	Sun Oct 23 07:43:13 2022
 tab-width:	4 spaces
 
  /\_/\
@@ -41,11 +41,10 @@ int main() {
 	cin >> k;
 	for (ll i = 1; i < LIM && i < k; i++) {
 		ll j = (k - i - 1) / (i<<1|1);
-		if (i > j)
-			break;
 		if (calc(i, j) == k) {
 			b = i;
 			a = j;
+			break;
 		}
 	}
 	if (a == 0 || b == 0)
