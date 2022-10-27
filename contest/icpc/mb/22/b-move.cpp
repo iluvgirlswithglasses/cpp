@@ -34,6 +34,7 @@ bool visited[I];
 int calc() {
 	deque<pi> q;
 	q.push_back({s, 0});	// {vertice, depth}
+	visited[s] = true;
 	//
 	while (q.size()) {
 		pi p = q.front(); q.pop_front();
