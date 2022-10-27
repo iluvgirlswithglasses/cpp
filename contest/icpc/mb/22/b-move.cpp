@@ -29,6 +29,8 @@ const ll N = 12, I = 1e6+7;
 ll m, n, s;
 ll a[N], b[N];
 
+bool visited[I];
+
 int calc() {
 	deque<pi> q;
 	q.push_back({s, 0});	// {vertice, depth}
@@ -39,7 +41,11 @@ int calc() {
 			int v = (a[i] * p.st + b[i]) % m;
 			if (v == 0)
 				return p.nd + 1;
-			q.push_back({v, p.nd + 1});
+			//
+			if (!visited[v]) {
+				visited[v] = true;
+				q.push_back({v, p.nd + 1});
+			}
 		}
 	}
 	return -1;
