@@ -13,6 +13,9 @@ I sexually identify myself as an Attack Helicopter
 BTW I use Arch
 */
 
+// cách làm tương tự bài voxor
+// nhưng dễ hơn nhiều
+
 #include <iostream>
 using namespace std;
 
