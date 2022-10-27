@@ -43,7 +43,7 @@ int main() {
 		ll j = (k - i - 1) / (i<<1|1);
 		if (i > j)
 			break;
-		if (calc(i, j) == k) {
+		if (calc(i, j) == k && i * j > a * b) {
 			b = i;
 			a = j;
 		}
