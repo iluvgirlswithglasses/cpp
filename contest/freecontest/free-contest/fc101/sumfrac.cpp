@@ -14,29 +14,20 @@ BTW I use Arch
 */
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
-typedef long long ll;
+typedef unsigned long long ll;
 typedef pair<int, int> pi;
 #define st first
 #define nd second
 #define all(c) c.begin(), c.end()
 
-ll __gcd(ll a, ll b) {
-	if (b == 0) return a;
-	return __gcd(b, a%b);
-}
+const int I = 1e9+7;
 
 ll gcd(ll a, ll b) {
-	return a > b ? __gcd(a, b) : __gcd(b, a);
-}
-
-ll lcm(vector<ll> &a) {
-	ll x = a[0];
-	for (int i = 1; i < n; i++) {
-		x = (x * a[i]) / gcd(x, a[i])
-	}
-	return x;
+	if (b == 0) return a;
+	return gcd(b, a % b);
 }
 
 // https://en.wikipedia.org/wiki/Prime_gap
@@ -62,43 +53,40 @@ struct Eratos {
 
 	bool is_prime(ll x) {
 		if (x <= n)
-			return !e[i];
+			return !e[x];
 		for (int _i = 0, i = p[0]; i * i <= x; i = p[++_i])
 			if (x % i == 0) return false;
 		return true;
 	}
-
-	vector<ll> get_divisors(ll x) {
-		int len = 1;
-		vector<ll> res = {1};
-		//
-		for (ll _i = 0, i = p[0]; i * i <= x; i = p[++_i]) if (x % i == 0) {
-			ll t = i;
-			while (x % i == 0) {
-				for (int j = 0; j < len; j++)
-					res.push_back(res[j] * t);
-				x /= i;
-				t *= i;
-			}
-			len = res.size();
-		}
-		if (x > 1) {
-			for (int j = 0; j < len; j++)
-				res.push_back(res[j] * x);
-		}
-		//
-		return res;
-	}
 } er;
 
+// document will come later
+// https://github.com/iluvgirlswithglasses/cpp/contest/freecontest/free-contest/fc101/sumfrac.pdf
 
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	er.init((int) 1e7);
 	int tt; cin >> tt;
 	while (tt--) {	
-		cin >> n;
+		ll n; cin >> n;
+		ll f, g;
+		for (int i = n; i >= 2; i--) if (er.is_prime(i)) {
+			f = i;
+			break;
+		}
+		for (int i = n+1; i <= I; i++) if (er.is_prime(i)) {
+			g = i;
+			break;
+		}
 		
+		ll y = f * g * 2;	// lcm(2*f, f*g)
+		ll x = (f - 2)*g + (n - f + 1)*2;
+		//     ^ before f  ^ after f
+		
+		ll k = gcd(y, x);
+		x /= k;
+		y /= k;
+		cout << x << "/" << y << "\n";
 	}
 	return 0;
 }
