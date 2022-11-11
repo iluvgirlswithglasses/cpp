@@ -241,6 +241,8 @@ void build(vector<pi> &a) {
 }
 
 int bs(int i, int k) {
+	if (f[i][0] > k)
+		return 0;
 	int l = 0, r = f[i].size();
 	while (l < r) {
 		int m = (l + r + 1) >> 1;
@@ -249,7 +251,7 @@ int bs(int i, int k) {
 		else
 			r = m-1;
 	}
-	return l;
+	return l+1;
 }
 
 int query(int l, int r, int k) {
@@ -277,18 +279,22 @@ int main() {
 	while (q--) {
 		int l, r; cin >> l >> r;
 		l--;
-		int target = ((r - l + 1) >> 1) - 1;
+
+		// the chosen number must be equal or greater than
+		// a `target` amount of numbers in range [l:r]
+		int range = r - l, target = range>>1;
+		if (range&1)
+			target++;
 
 		int lo = a[0].st, hi = a[n-1].st;
 		while (lo < hi) {
-			int mi = (lo + hi + 1) >> 1;
-			if (query(l, r, mi) > target)
-				hi = mi - 1;
+			int mi = (lo + hi) >> 1;
+			if (query(l, r, mi) >= target)
+				hi = mi;
 			else
-				lo = mi;
+				lo = mi + 1;
 		}
-
-		cout << lo << "\n";
+		cout << hi << "\n";
 	}
 	return 0;
 }
