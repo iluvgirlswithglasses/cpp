@@ -240,20 +240,8 @@ void build(vector<pi> &a) {
 	}
 }
 
-int bs(int i, int k) {
-	if (f[i][0] > k)
-		return 0;
-	if (f[i].back() <= k)
-		return f[i].size();
-	int l = 0, r = f[i].size();
-	while (l < r) {
-		int m = (l + r + 1) >> 1;
-		if (f[i][m] <= k)
-			l = m;
-		else
-			r = m-1;
-	}
-	return l+1;
+int __bs(int i, int k) {
+	return upper_bound(f[i].begin(), f[i].end(), k) - f[i].begin();
 }
 
 int query(int l, int r, int k) {
@@ -261,8 +249,8 @@ int query(int l, int r, int k) {
 	// in range [l:r]
 	int res = 0;
 	for (l+=n, r+=n; l < r; l>>=1, r>>=1) {
-		if (l&1) res += bs(l++, k);
-		if (r&1) res += bs(--r, k);
+		if (l&1) res += __bs(l++, k);
+		if (r&1) res += __bs(--r, k);
 	}
 	return res;
 }
@@ -284,9 +272,7 @@ int main() {
 
 		// the chosen number must be equal to or greater than
 		// a `target` amount of numbers in range [l:r)
-		int range = r - l, target = range>>1;
-		if (range&1)
-			target++;
+		int target = (r-l+1)>>1;
 
 		int lo = a[0].st, hi = a[n-1].st;
 		while (lo < hi) {
