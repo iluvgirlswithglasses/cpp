@@ -243,6 +243,8 @@ void build(vector<pi> &a) {
 int bs(int i, int k) {
 	if (f[i][0] > k)
 		return 0;
+	if (f[i].back() <= k)
+		return f[i].size();
 	int l = 0, r = f[i].size();
 	while (l < r) {
 		int m = (l + r + 1) >> 1;
@@ -280,8 +282,8 @@ int main() {
 		int l, r; cin >> l >> r;
 		l--;
 
-		// the chosen number must be equal or greater than
-		// a `target` amount of numbers in range [l:r]
+		// the chosen number must be equal to or greater than
+		// a `target` amount of numbers in range [l:r)
 		int range = r - l, target = range>>1;
 		if (range&1)
 			target++;
