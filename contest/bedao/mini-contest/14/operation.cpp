@@ -29,26 +29,15 @@ int n, q, a[N];
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
 	cin >> n >> q;
-	if (n == 1) {
-		int a; cin >> a;
-		while (q--) {
-			int x; cin >> x;
-			if (x == a)
-				cout << "Yes\n";
-			else
-				cout << "No\n";
-		}
-	} else {
-		for (int i = 0; i < n; i++)
-			cin >> a[i];
-		int l = *min_element(a, a+n), r = *max_element(a, a+n);
-		while (q--) {
-			int x; cin >> x;
-			if (l <= x && x <= r)
-				cout << "Yes\n";
-			else
-				cout << "No\n";
-		}
+	for (int i = 0; i < n; i++)
+		cin >> a[i];
+	int l = *min_element(a, a+n), r = *max_element(a, a+n);
+	while (q--) {
+		int x; cin >> x;
+		if (l <= x && x <= r)
+			cout << "Yes\n";
+		else
+			cout << "No\n";
 	}
 	return 0;
 }
