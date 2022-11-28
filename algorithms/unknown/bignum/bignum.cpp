@@ -211,6 +211,24 @@ struct BigNum {
 		__mul(x);
 	}
 
+	/**
+	 * @ operators with int
+	 * */
+	void add(int x) {
+		BigNum y(x);
+		add(y);
+	}
+
+	void sub(int x) {
+		BigNum y(x);
+		sub(y);
+	}
+
+	void mul(int x) {
+		BigNum y(x);
+		mul(y);
+	}
+
 	// x < BASE
 	void div(int x) {
 		for (int i = (int) d.size() - 1, r = 0; i >= 0; i--, r %= x) {
