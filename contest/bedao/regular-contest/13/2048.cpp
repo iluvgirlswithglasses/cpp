@@ -29,18 +29,6 @@ typedef pair<int, char> pi;
 
 const ll R = 1e9+9, N = 48828125;
 
-ll     int_tb[N];
-string str_tb[N];
-
-void gen_tb() {
-	for (ll i = 0; i < N; i++) {
-		int_tb[i] = i * 2048ll;
-
-		string str = to_string(int_tb[i]);
-		str_tb[i] = string(11 - str.length(), '0') + str;
-	}
-}
-
 /**
  * @ utils
  * */
@@ -49,6 +37,14 @@ ll get_max(string &t) {
 	for (int i = 0; i < t.length(); i++)
 		if (t[i] != '?') ans[i] = t[i];
 	return stoll(ans);
+}
+
+ll get_min(string &t) {
+	string str = string(t.length(), '0');
+	for (int i = 0; i < t.length(); i++)
+		if (t[i] != '?') str[i] = t[i];
+	ll ans = stoll(str);
+	return (ans / 2048) * 2048;
 }
 
 vector<pi> get_pos(string &t) {
@@ -73,10 +69,14 @@ ll head_check(string &s) {
 
 ll tail_check(string &t) {
 	ll cnt = 0;
-	ll mx  = get_max(t);
+	ll mn = get_min(t), mx = get_max(t);
 	vector<pi> pos = get_pos(t);
-	for (int i = 0; i < N && int_tb[i] <= mx; i++)
-		if (check(str_tb[i], pos)) cnt++;
+	
+	for (; mn <= mx; mn += 2048) {
+		string s = to_string(mn);
+		s = string(11 - s.length(), '0') + s;
+		if (check(s, pos)) cnt++;
+	}
 	return cnt;
 }
 
@@ -85,15 +85,24 @@ ll tail_check(string &t) {
  * */
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
-	gen_tb();
-	//
 	string s, t;
 	cin >> s;
 	if (s.length() <= 12) {
-		cout << tail_check(s) << "\n";
+		if (s[0] == '?') {
+			ll cnt = 0;
+			for (char c = '1'; c <= '9'; c++) {
+				s[0] = c;
+				string candidate = string(11 - s.length(), '0') + s;
+				cnt += tail_check(candidate);
+			}
+			cout << cnt << "\n";
+		} else {
+			s = string(11 - s.length(), '0') + s;
+			cout << tail_check(s) << "\n";
+		}
 	} else {
-		t = s.substr(s.length() - 12, 12);
-		s = s.substr(0, s.length() - 12);
+		t = s.substr(s.length() - 11, 11);
+		s = s.substr(0, s.length() - 11);
 		ll ans = head_check(s) * tail_check(t) % R;
 		cout << ans << "\n";
 	}
