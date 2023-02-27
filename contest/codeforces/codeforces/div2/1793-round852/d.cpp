@@ -42,10 +42,12 @@ ll   ans;
 
 /** @ utils */
 void without_one() {
+	// choose all
+	ans = 1;
 	// choose only 1 element
 	for (int i = 0; i < n; i++) {
-		if (a[i] == 1 && b[i] != 1) continue;
-		if (a[i] != 1 && b[i] == 1) continue;
+		// the case where a[i] == b[i] == 1 is covered elsewhere
+		if (a[i] == 1 || b[i] == 1) continue;
 		ans++;
 	}
 	// choose the subarrays that dont have 1
@@ -81,11 +83,33 @@ int main() {
 	if (l > r) swap(l, r);
 	for (int i = l; i <= r; i++)
 		has[a[i]] = true, has[b[i]] = true;
-	for (int m = 2; m <= n; m++) {
-		// find subs that mex == m
-		move_cursor(l, r, min(aloc[m], bloc[m]), max(aloc[m], bloc[m]));
-		// pair any [0:l] with any [r:n)
-		if (!has[m + 1]) ans += (l + 1) * (n - r);
+
+	for (int m = 1; m < n; m++) {
+		// find segments that has `1..m` but dont have `m+1`
+		int nl = aloc[m+1], nr = bloc[m+1];
+		if (nl > nr) swap(nl, nr);
+
+		if (nl < l && r < nr) {
+			// [l, r] inside [nl, nr]
+			ans += (ll) (l - nl) * (nr - r);
+			move_cursor(l, r, nl, nr);	// compulsory range [l, r] to [nl, nr]
+		} else if (l < nl && nr < r) {
+			// [nl, nr] inside [l, r]
+			
+		} else if (nr < l) {
+			// [nl, nr] is on the left of [l, r]
+			// --> pair any (nr, l] with [r, n)
+			ans += (ll) (l - nr) * (n - r);
+			move_cursor(l, r, nl, r);	// compulsory range [l, r] to [nl, r]
+		} else if (r < nl) {
+			// [l, r] is on the left of [nl, nr]
+			// --> pair any [0, l] with [r, nl)
+			ans += (ll) (l + 1) * (nl - r);
+			move_cursor(l, r, l, nr);	// compulsory range [l, r] to [l, nr]
+		} else {
+			// [nl, nr] intersect [l, r]
+			move_cursor(l, r, min(l, nl), max(r, nr));
+		}
 	}
 	//
 	cout << ans << "\n";
