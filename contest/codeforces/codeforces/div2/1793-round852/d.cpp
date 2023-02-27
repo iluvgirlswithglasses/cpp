@@ -46,7 +46,7 @@ void without_one() {
 	ans = 1;
 	// choose only 1 element
 	for (int i = 0; i < n; i++) {
-		// the case where a[i] == b[i] == 1 is covered elsewhere
+		// the case where a[i] == b[i] == 1 is covered in main()
 		if (a[i] == 1 || b[i] == 1) continue;
 		ans++;
 	}
@@ -91,10 +91,12 @@ int main() {
 
 		if (nl < l && r < nr) {
 			// [l, r] inside [nl, nr]
+			// --> pair any (nl, l] with [r, nr)
 			ans += (ll) (l - nl) * (nr - r);
 			move_cursor(l, r, nl, nr);	// compulsory range [l, r] to [nl, nr]
 		} else if (l < nl && nr < r) {
 			// [nl, nr] inside [l, r]
+			// --> skip
 			
 		} else if (nr < l) {
 			// [nl, nr] is on the left of [l, r]
@@ -108,6 +110,7 @@ int main() {
 			move_cursor(l, r, l, nr);	// compulsory range [l, r] to [l, nr]
 		} else {
 			// [nl, nr] intersect [l, r]
+			// --> just move the cursor for the next iteration
 			move_cursor(l, r, min(l, nl), max(r, nr));
 		}
 	}
