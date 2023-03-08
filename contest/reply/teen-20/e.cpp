@@ -164,7 +164,7 @@ void buildGraph() {
 		}
 	}
 
-	for (int u = 0; u < nodes; u++)
+	for (ll u = 0; u < nodes; u++)
 		for (int v: adj[u]) 
 			wei[u<<32|v] = w[v];
 
