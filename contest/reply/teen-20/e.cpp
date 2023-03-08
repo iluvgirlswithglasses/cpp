@@ -140,8 +140,7 @@ struct PentagonVertice {
 
 string dat[ROW];
 vector<int> adj[N];	
-map<ll, int> wei;	// wei[u<<32|v] == cost of v
-int w[N];			// w[i]: weight of node `i`
+int wei[N];			// wei[i]: weight of node `i`
 
 void buildGraph() {
 	for (int i = 0; i < n; i++) {
@@ -155,18 +154,14 @@ void buildGraph() {
 
 				char weight = dat[i][j<<1|k];
 				if (weight == 'S')
-					stt = u.id, w[u.id] = I;
+					stt = u.id, wei[u.id] = I;
 				else if (weight == 'D')
-					des = u.id, w[u.id] = I;
+					des = u.id, wei[u.id] = I;
 				else
-					w[u.id] = weight - '0';
+					wei[u.id] = weight - '0';
 			}
 		}
 	}
-
-	for (ll u = 0; u < nodes; u++)
-		for (int v: adj[u]) 
-			wei[u<<32|v] = w[v];
 
 	/*
 	for (int i = 0; i < nodes; i++) {
@@ -178,6 +173,64 @@ void buildGraph() {
 }
 
 /**
+ * @ dijkstra
+ * 
+ * the implementation of this dijkstra is similar to 
+ * ./vnoj/old-sol/b211109/dhfrbus/bus.cpp
+ * */
+struct Dijnode {
+	int u, w;	// current node, current min weight
+	int ans;	// the node that has been upgraded (-1 if none has been upgraded)
+
+	bool operator < (const Dijnode &d) const {
+		if (w == d.w) return ans > d.ans;	// smaller ans is prioritized
+		return w < d.w; // now priority queue will get the one with the max `w`
+	}
+
+	Dijnode(int _u, int _w, int _ans) {
+		u = _u, w = _w, ans = _ans;
+	}
+};
+
+int dijkstra() {
+	priority_queue<Dijnode, vector<Dijnode>> q;
+	q.push(Dijnode(stt, I, -1));
+	// d[0]: without upgrade
+	// d[1]: with upgrade
+	vector<vector<int>> d(2, vector<int>(nodes, 0));
+	d[0][stt] = d[1][stt] = I;
+
+	while (q.size()) {
+		Dijnode a = q.top(); q.pop();
+		bool upgraded = a.ans > -1;
+
+		for (int v: adj[a.u]) {
+			if (v == des) return a.ans;
+
+			int nxtw = min(a.w, wei[v]);
+			if (upgraded && nxtw > d[1][v]) {
+				d[1][v] = nxtw;
+				q.push(Dijnode(v, nxtw, a.ans));
+			} else if (!upgraded) {
+				// dont upgrade this node
+				if (nxtw > d[0][v]) {
+					d[0][v] = nxtw;
+					q.push(Dijnode(v, nxtw, -1));
+				}
+
+				// upgrade this node
+				if (a.w > d[1][v]) {
+					d[1][v] = a.w;
+					q.push(Dijnode(v, a.w, v));
+				}
+			}
+		}
+	}
+
+	return -1;	// wont happens
+}
+
+/**
  * @ drivers
  * */
 void read() {
@@ -186,7 +239,6 @@ void read() {
 		cin >> dat[i];
 	for (int i = 0; i < N; i++)
 		adj[i].clear();
-	wei.clear();
 }
 
 int main() {
@@ -195,6 +247,10 @@ int main() {
 	for (int t = 1; t <= tt; t++) {
 		read();
 		buildGraph();
+		cout << "Case #" << t << ": ";
+		int ans = dijkstra();
+		if (ans == -1) cout << "-1\n";
+		else vts[ans].prf();
 	}
 	return 0;
 }
