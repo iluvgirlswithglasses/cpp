@@ -110,10 +110,14 @@ int main() {
 			for (int r = l; r < n; r++) {
 				if (resources.size() != c) 
 					for (int i: col_content[r]) resources.insert(i);
+				bool inserted = false;
 				for (int y = 0; y < n; y++)
-					if (mat[y][r] > 0) row_content[y].insert(mat[y][r]);
+					if (mat[y][r] > 0) {
+						row_content[y].insert(mat[y][r]);
+						inserted = true;
+					}
 
-				if (resources.size() == c) calc(row_content, l, r, y0, x0, y1, x1, ans);
+				if (resources.size() == c && inserted) calc(row_content, l, r, y0, x0, y1, x1, ans);
 			}
 		}
 
