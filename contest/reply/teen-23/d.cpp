@@ -33,6 +33,7 @@ typedef pair<int, int> pi;
 #define nd second
 #define all(c) c.begin(), c.end()
 #define map unordered_map
+#define set unordered_set
 
 const int N = 1504, Q = 175007;
 // sqr size, colors count, gems count
@@ -53,28 +54,28 @@ int area(int t, int l, int d, int r) {
 	return (r - l + 1) * (d - t + 1);
 }
 
-void calc(vector<unordered_set<int>> &row_content, set<int> &indexes, const int l, const int r, int &tans, int &lans, int &dans, int &rans, int &maxarea) {
+void calc(vector<set<int>> &row_content, const int l, const int r, int &tans, int &lans, int &dans, int &rans, int &maxarea) {
 	map<int, int> dct;	// dct[i]: number of times `i` appeared
 
-	set<int>::iterator t = indexes.lower_bound(0), d = indexes.lower_bound(0);
-	for (; d != indexes.end(); d++) {
+	int t = 0, d = 0;
+	for (; d < n; d++) {
 		// elements at the bottom edge are added
-		for (int i: row_content[*d])
+		for (int i: row_content[d])
 			dct[i]++;
 
 		while (dct.size() == c) {
 			// check ans
-			if (dct.size() == c && area(*t, l, *d, r) < maxarea) {
+			if (dct.size() == c && area(t, l, d, r) < maxarea) {
 				// new result
-				tans = *t;
+				tans = t;
 				lans = l;
-				dans = *d;
+				dans = d;
 				rans = r;
-				maxarea = area(*t, l, *d, r);
+				maxarea = area(t, l, d, r);
 			}
 
 			// removes redundant elements at the top
-			for (int i: row_content[*t]) {
+			for (int i: row_content[t]) {
 				if (dct[i] == 1) 
 					dct.erase(i);
 				else 
@@ -103,23 +104,20 @@ int main() {
 		int y0, x0, y1, x1, ans = N * N;
 
 		for (int l = 0; l < n; l++) {
-			unordered_set<int> resources;
-			vector<unordered_set<int>> row_content(n);
-			set<int> indexes;
+			set<int> resources;
+			vector<set<int>> row_content(n);
 
 			for (int r = l; r < n; r++) {
 				if (resources.size() != c) 
 					for (int i: col_content[r]) resources.insert(i);
-
 				bool inserted = false;
 				for (int y = 0; y < n; y++)
 					if (mat[y][r] > 0) {
 						row_content[y].insert(mat[y][r]);
-						indexes.insert(y);
 						inserted = true;
 					}
 
-				if (resources.size() == c && inserted) calc(row_content, indexes, l, r, y0, x0, y1, x1, ans);
+				if (resources.size() == c && inserted) calc(row_content, l, r, y0, x0, y1, x1, ans);
 			}
 		}
 
