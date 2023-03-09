@@ -24,6 +24,7 @@ BTW I use Arch
 #include <vector>
 #include <set>
 #include <unordered_map>
+#include <unordered_set>
 using namespace std;
 
 typedef long long ll;
@@ -32,24 +33,35 @@ typedef pair<int, int> pi;
 #define nd second
 #define all(c) c.begin(), c.end()
 #define map unordered_map
+#define set unordered_set
 
 const int N = 1504, Q = 175007;
 // sqr size, colors count, gems count
 int n, c, q;
 int mat[N][N];
+vector<int> col_content[N];	// col_content[c]: colors count of column `c`
+
+void build_col() {
+	for (int c = 0; c < n; c++) {
+		set<int> s;
+		for (int r = 0; r < n; r++) 
+			if (mat[r][c] > 0) s.insert(mat[r][c]);
+		col_content[c] = vector<int>(s.begin(), s.end());
+	}
+}
 
 int area(int t, int l, int d, int r) {
 	return (r - l + 1) * (d - t + 1);
 }
 
-void calc(const int l, const int r, int &tans, int &lans, int &dans, int &rans, int &maxarea) {
+void calc(vector<set<int>> &row_content, const int l, const int r, int &tans, int &lans, int &dans, int &rans, int &maxarea) {
 	map<int, int> dct;	// dct[i]: number of times `i` appeared
 
 	int t = 0, d = 0;
 	for (; d < n; d++) {
-		for (int x = l; x <= r; x++)
-			// elements at the bottom edge are added
-			if (mat[d][x] > 0) dct[mat[d][x]]++;
+		// elements at the bottom edge are added
+		for (int i: row_content[d])
+			dct[i]++;
 
 		while (dct.size() == c) {
 			// check ans
@@ -63,11 +75,11 @@ void calc(const int l, const int r, int &tans, int &lans, int &dans, int &rans, 
 			}
 
 			// removes redundant elements at the top
-			for (int x = l; x <= r; x++) if (mat[t][x] > 0) {
-				if (dct[mat[t][x]] == 1) 
-					dct.erase(mat[t][x]);
+			for (int i: row_content[t]) {
+				if (dct[i] == 1) 
+					dct.erase(i);
 				else 
-					dct[mat[t][x]]--;
+					dct[i]--;
 			}
 			t++;
 		}
@@ -87,12 +99,23 @@ int main() {
 			if ('a' <= g && g <= 'z') mat[y][x] = g - 'a' + 1 + 26;
 			if ('A' <= g && g <= 'Z') mat[y][x] = g - 'A' + 1;
 		}
+		build_col();
 
 		int y0, x0, y1, x1, ans = N * N;
 
-		for (int l = 0; l < n; l++)
-			for (int r = l; r < n; r++)
-				calc(l, r, y0, x0, y1, x1, ans);
+		for (int l = 0; l < n; l++) {
+			set<int> resources;
+			vector<set<int>> row_content(n);
+
+			for (int r = l; r < n; r++) {
+				if (resources.size() != c) 
+					for (int i: col_content[r]) resources.insert(i);
+				for (int y = 0; y < n; y++)
+					if (mat[y][r] > 0) row_content[y].insert(mat[y][r]);
+
+				if (resources.size() == c) calc(row_content, l, r, y0, x0, y1, x1, ans);
+			}
+		}
 
 		cout << "Case #" << t << ": ";
 		cout << y0 << " " << x0 << " " << y1 << " " << x1 << " " << ans << "\n";
