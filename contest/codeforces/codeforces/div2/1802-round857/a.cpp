@@ -13,6 +13,9 @@ I firmly believe in the supremacy of the Euphonium
 BTW I use Arch
 */
 
+// this problem taught me NEVER to use G++14 on codeforces again
+// otherwise line 53 will produce a bug
+
 #include <iostream>
 #include <iomanip>
 #include <cstdio>
