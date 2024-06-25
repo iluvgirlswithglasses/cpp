@@ -1,15 +1,6 @@
 
-// Copyright (c) 2024 ilgwg. All Rights Reserved.
-
-#include <iostream>
-#include <cstdint>
-#include <vector>
-#include <map>
-using namespace std;
-
 struct Eratos
 {
-
     // @! init -------------------------------------------------------
     Eratos(int table_lim)
         : n(table_lim)
@@ -87,10 +78,4 @@ struct Eratos
     static constexpr bool NOT_PRIME = true;
 
 } er(1e7 + 7);
-
-int main(int argc, const char* argv[])
-{
-    ios_base::sync_with_stdio(false); cin.tie(0);
-    return 0;
-}
 
