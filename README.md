@@ -16,6 +16,7 @@ Many of the codes are out-dated. Don't look at files which are writen before Jun
 - `./trick`: C++ tricks and syntaxes that are easy to forget, but crucial to remember... Or I thought so. This folder is somewhat even more out-dated than `./algorithms`
 - `./vnoj`: Here dwell my solutions of *[Vietnam Online Judge](https://oj.vnoi.info/)*'s problems. *[My VNOI account](https://oj.vnoi.info/user/iluvgirlswithglasses)*, if you care. I reached top #69 on 28-Nov-2021 btw. (Update: It was #40 in December 2021)
 - `./workshop`: Place for files I don't know where to place.
+- `./snippets`: This is a new directory, created in 2024. It contains programming snippets I use after I was over the hill.
 
 # Cute Girl
 
