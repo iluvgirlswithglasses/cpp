@@ -39,11 +39,11 @@ struct Segtree
         build(r0 - 1);
     }
 
-    int query(int l, int r) {
+    T query(int l, int r) {
         l += n, r += n;
         push(l);
         push(r - 1);
-        int res = 2e9;
+        T res = -2e9;
         for (; l < r; l >>= 1, r >>= 1) {
             if (l&1) res = max(res, t[l++]);
             if (r&1) res = max(t[--r], res);
