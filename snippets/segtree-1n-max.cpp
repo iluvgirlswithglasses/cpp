@@ -26,12 +26,21 @@ struct Segtree
 
     T query(int l, int r)
     {
-        T ans = -2e9;
+        T ans = numeric_limits<T>::min();
         for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
             if (l&1) ans = max(ans, t[l++]);
             if (r&1) ans = max(ans, t[--r]);
         }
         return ans;
     }
+
+    // @! internal ---------------------------------------------------
+    Segtree& operator=(const Segtree& other)
+    {
+        t = other.t;
+        n = other.n;
+        return *this;
+    }
+
 };
 

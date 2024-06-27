@@ -27,7 +27,7 @@ struct Segtree
     }
 
     // @! queries ----------------------------------------------------
-    void inc(int l, int r, int value)
+    void inc(int l, int r, T value)
     {
         l += n, r += n;
         int l0 = l, r0 = r;
@@ -43,7 +43,7 @@ struct Segtree
         l += n, r += n;
         push(l);
         push(r - 1);
-        T res = +2e9;
+        T res = numeric_limits<T>::max();
         for (; l < r; l >>= 1, r >>= 1) {
             if (l&1) res = min(res, t[l++]);
             if (r&1) res = min(t[--r], res);
@@ -52,7 +52,7 @@ struct Segtree
     }
 
     // @! internal ---------------------------------------------------
-    void apply(int p, int value)
+    void apply(int p, T value)
     {
         t[p] += value;
         if (p < n)
@@ -77,6 +77,15 @@ struct Segtree
                 d[i] = 0;
             }
         }
+    }
+
+    Segtree& operator=(const Segtree& other)
+    {
+        t = other.t;
+        d = other.d;
+        n = other.n;
+        h = other.h;
+        return *this;
     }
 
 };
