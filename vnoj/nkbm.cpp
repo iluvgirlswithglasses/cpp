@@ -24,16 +24,15 @@ vector<int> adj[I]; // 1-indexed
 
 bool dfs(const int root, int u)
 {
-    if (vst[u] == root)
-        return false;
     vst[u] = root;
 
     for (int v: adj[u]) {
-        if (ass[v] == 0 || dfs(root, ass[v])) {
+        if (ass[v] == 0 || (vst[ass[v]] != root && dfs(root, ass[v]))) {
             ass[v] = u;
             return true;
         }
     }
+
     return false;
 }
 
