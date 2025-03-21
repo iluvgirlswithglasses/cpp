@@ -28,17 +28,9 @@ Thus, I should put anime girls everywhere I go too!
 ![reimu](https://raw.githubusercontent.com/iluvgirlswithglasses/img-host/main/host/sippin'%20tea%20-%20sqr.gif)
 
 <details>
-  <summary>wtf</summary>
+<summary>wtf</summary>
 
-  I had never said proper thanks to you, Kither, Newplayers12, and toha.
-
-  Perhaps unbeknownst to you, but in the truest sense, without a hint of underestimation, you guys resurrected me. I were reborn, into a world I never dared to even imagine.
-
-  But I just didn't know how to reach you. Both then and now.
-
-  Whenever I look at this repository, reminiscence of our time together haunts me.
-
-  But I just can't go back anymore.
+Whenever I look at this repository, reminiscence of me when the uhhhhhh... Ummmmmm... Wait I got nothing. Oh wait no, me when the... Nope, lost it.
 
 </details>
 
